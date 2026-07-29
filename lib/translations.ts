@@ -62,6 +62,11 @@ export interface Translation {
     intro: string;
     languagesNote: string;
     afterNote: string;
+    qrHeading: string;
+    qrInstruction: string;
+    orDirect: string;
+    openFormButton: string;
+    nextStepsBody: string;
   };
   status: {
     title: string;
@@ -194,6 +199,12 @@ const en: Translation = {
       'Use the form below to tell us about your situation. All information is kept confidential and only used to help you.',
     languagesNote: 'This form is available in English, French, Spanish, and Arabic.',
     afterNote: 'After submitting you will receive a case reference number. Keep it safe.',
+    qrHeading: 'Scan to Submit Your Case',
+    qrInstruction: 'Scan this QR code with your phone camera to open the form in your language.',
+    orDirect: 'Or open the form directly:',
+    openFormButton: 'Open Form',
+    nextStepsBody:
+      'After submitting you will receive a case reference number by email if you provided one. An agent will contact you within 2 working days.',
   },
   status: {
     title: 'Check Case Status',
@@ -333,6 +344,12 @@ const fr: Translation = {
       'Utilisez le formulaire ci-dessous pour nous parler de votre situation. Toutes les informations restent confidentielles et servent uniquement à vous aider.',
     languagesNote: 'Ce formulaire est disponible en anglais, français, espagnol et arabe.',
     afterNote: 'Après la soumission, vous recevrez un numéro de référence de cas. Conservez-le en lieu sûr.',
+    qrHeading: 'Scannez pour soumettre votre cas',
+    qrInstruction: 'Scannez ce code avec votre téléphone pour ouvrir le formulaire dans votre langue.',
+    orDirect: 'Ou ouvrez le formulaire directement:',
+    openFormButton: 'Ouvrir le formulaire',
+    nextStepsBody:
+      'Après avoir soumis, vous recevrez un numéro de référence par e-mail si vous en avez fourni un. Un agent vous contactera dans les 2 jours ouvrables.',
   },
   status: {
     title: 'Vérifier le statut du cas',
@@ -472,6 +489,12 @@ const es: Translation = {
       'Use el formulario a continuación para contarnos su situación. Toda la información se mantiene confidencial y solo se usa para ayudarle.',
     languagesNote: 'Este formulario está disponible en inglés, francés, español y árabe.',
     afterNote: 'Después de enviarlo, recibirá un número de referencia de caso. Guárdelo en un lugar seguro.',
+    qrHeading: 'Escanee para enviar su caso',
+    qrInstruction: 'Escanee este código con su teléfono para abrir el formulario en su idioma.',
+    orDirect: 'O abra el formulario directamente:',
+    openFormButton: 'Abrir formulario',
+    nextStepsBody:
+      'Después de enviar recibirá un número de referencia por correo electrónico si proporcionó uno. Un agente le contactará en 2 días hábiles.',
   },
   status: {
     title: 'Consultar estado del caso',
@@ -610,6 +633,12 @@ const ar: Translation = {
     intro: 'استخدم النموذج أدناه لإخبارنا عن وضعك. تُحفظ جميع المعلومات بسرية وتُستخدم فقط لمساعدتك.',
     languagesNote: 'هذا النموذج متاح باللغات الإنجليزية والفرنسية والإسبانية والعربية.',
     afterNote: 'بعد التقديم ستحصل على رقم مرجعي للحالة. احتفظ به في مكان آمن.',
+    qrHeading: 'امسح للإبلاغ عن حالتك',
+    qrInstruction: 'امسح هذا الرمز بكاميرا هاتفك لفتح النموذج بلغتك.',
+    orDirect: 'أو افتح النموذج مباشرة:',
+    openFormButton: 'فتح النموذج',
+    nextStepsBody:
+      'بعد الإرسال ستتلقى رقم مرجعي عبر البريد الإلكتروني إذا قدمته. سيتصل بك أحد الموظفين خلال يومي عمل.',
   },
   status: {
     title: 'التحقق من حالة القضية',
