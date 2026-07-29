@@ -4,98 +4,124 @@ export interface CaseStatusResult {
   caseId: string;
   status: CaseStatusValue;
   referredTo: string | null;
-  lastUpdated: string;
+  assignedTo: string | null;
+  receivedBy: string | null;
+  urgency: string | null;
+  modified: string;
+  summary: string | null;
+}
+
+export interface CreateCaseResult {
+  caseId: string;
+  itemId: string;
+}
+
+const TENANT_ID = process.env.AZURE_TENANT_ID;
+const CLIENT_ID = process.env.AZURE_CLIENT_ID;
+const CLIENT_SECRET = process.env.AZURE_CLIENT_SECRET;
+const SITE_ID = process.env.SHAREPOINT_SITE_ID;
+const LIST_ID = process.env.SHAREPOINT_LIST_ID;
+
+/**
+ * Requests an app-only access token via the client credentials flow.
+ *
+ * Requires an Azure AD app registration with the application permissions
+ * `Sites.Read.All` (for getCaseStatus) and `Sites.ReadWrite.All` (for
+ * createCase), with admin consent granted. See .env.local.example for the
+ * environment variables this depends on.
+ */
+async function getAccessToken(): Promise<string> {
+  const response = await fetch(`https://login.microsoftonline.com/${TENANT_ID}/oauth2/v2.0/token`, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+    body: new URLSearchParams({
+      grant_type: 'client_credentials',
+      client_id: CLIENT_ID!,
+      client_secret: CLIENT_SECRET!,
+      scope: 'https://graph.microsoft.com/.default',
+    }),
+  });
+  const data = await response.json();
+  if (!data.access_token) throw new Error('Failed to get access token');
+  return data.access_token;
 }
 
 /**
- * Looks up a case by reference number and contact number.
- *
- * TODO: Microsoft Graph API is not yet connected. Once the Azure AD app
- * registration is complete (see .env.local.example), replace this stub
- * with the implementation below.
- *
- * Steps to connect Microsoft Graph:
- * 1. Register an app in Azure AD (portal.azure.com > App registrations).
- * 2. Grant it the application permission `Sites.Read.All` and have an
- *    admin grant consent.
- * 3. Create a client secret and store AZURE_CLIENT_ID, AZURE_CLIENT_SECRET,
- *    and AZURE_TENANT_ID in .env.local.
- * 4. Find your SharePoint site ID:
- *    GET https://graph.microsoft.com/v1.0/sites/{hostname}:/sites/{site-path}
- *    Store it as SHAREPOINT_SITE_ID.
- * 5. Find the list ID for the cases list:
- *    GET https://graph.microsoft.com/v1.0/sites/{siteId}/lists
- *    Store it as SHAREPOINT_LIST_ID.
- * 6. Uncomment the implementation below. It is called from
- *    app/api/status/route.ts, which is a server-only route so the client
- *    secret is never exposed to the browser.
+ * Looks up a case by reference number and contact number in the
+ * SharePoint list backing the Operations Centre.
  */
-export async function getCaseStatus(
-  caseId: string,
-  contactNumber: string
-): Promise<CaseStatusResult | null> {
-  // Stub implementation — no live Graph API connection yet.
-  return null;
+export async function getCaseStatus(caseId: string, contactNumber: string): Promise<CaseStatusResult | null> {
+  const token = await getAccessToken();
+  const filter = encodeURIComponent(`fields/Title eq '${caseId}' and fields/ContactNo eq '${contactNumber}'`);
+  const url = `https://graph.microsoft.com/v1.0/sites/${SITE_ID}/lists/${LIST_ID}/items?expand=fields&$filter=${filter}&$select=fields`;
 
-  /* ---- Full implementation, ready to uncomment once Azure AD is set up ----
+  const response = await fetch(url, {
+    headers: { Authorization: `Bearer ${token}`, Accept: 'application/json' },
+  });
 
-  const tenantId = process.env.AZURE_TENANT_ID!;
-  const clientId = process.env.AZURE_CLIENT_ID!;
-  const clientSecret = process.env.AZURE_CLIENT_SECRET!;
-  const siteId = process.env.SHAREPOINT_SITE_ID!;
-  const listId = process.env.SHAREPOINT_LIST_ID!;
+  if (!response.ok) throw new Error('Graph API request failed');
 
-  // 1. Get an app-only access token via client credentials flow.
-  const tokenResponse = await fetch(
-    `https://login.microsoftonline.com/${tenantId}/oauth2/v2.0/token`,
-    {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-      body: new URLSearchParams({
-        client_id: clientId,
-        client_secret: clientSecret,
-        scope: 'https://graph.microsoft.com/.default',
-        grant_type: 'client_credentials',
-      }),
-    }
-  );
+  const data = await response.json();
+  if (!data.value || data.value.length === 0) return null;
 
-  if (!tokenResponse.ok) {
-    throw new Error('Failed to authenticate with Microsoft Graph');
-  }
-
-  const { access_token: accessToken } = await tokenResponse.json();
-
-  // 2. Query the SharePoint list for a matching item.
-  // Title is assumed to hold the case reference number, and a custom
-  // field ContactNo holds the contact number used at submission.
-  const filter = encodeURIComponent(
-    `fields/Title eq '${caseId}' and fields/ContactNo eq '${contactNumber}'`
-  );
-  const listResponse = await fetch(
-    `https://graph.microsoft.com/v1.0/sites/${siteId}/lists/${listId}/items?expand=fields&$filter=${filter}`,
-    {
-      headers: { Authorization: `Bearer ${accessToken}` },
-    }
-  );
-
-  if (!listResponse.ok) {
-    throw new Error('Failed to query case list');
-  }
-
-  const data = await listResponse.json();
-  const item = data.value?.[0];
-
-  if (!item) {
-    return null;
-  }
-
+  const fields = data.value[0].fields;
   return {
-    caseId: item.fields.Title,
-    status: item.fields.Status,
-    referredTo: item.fields.ReferredTo ?? null,
-    lastUpdated: item.fields.Modified,
+    caseId: fields.Title,
+    status: fields.CaseStatus,
+    referredTo: fields.Referredto ?? null,
+    assignedTo: fields.AssignedPersonnel ?? null,
+    receivedBy: fields.Receivedby ?? null,
+    urgency: fields.UrgencyLevel ?? null,
+    modified: fields.Modified,
+    summary: fields.SummaryofComplaint ?? null,
   };
+}
 
-  ---- end full implementation ---- */
+/**
+ * Creates a new case item in the SharePoint list from a public form
+ * submission, generating a case reference number in the form
+ * AMA-MIG-YYMMDD-HHMM.
+ */
+export async function createCase(data: Record<string, string>): Promise<CreateCaseResult> {
+  const token = await getAccessToken();
+
+  const now = new Date();
+  const pad = (n: number) => n.toString().padStart(2, '0');
+  const caseId = `AMA-MIG-${now.getFullYear().toString().slice(2)}${pad(now.getMonth() + 1)}${pad(now.getDate())}-${pad(now.getHours())}${pad(now.getMinutes())}`;
+
+  const url = `https://graph.microsoft.com/v1.0/sites/${SITE_ID}/lists/${LIST_ID}/items`;
+  const response = await fetch(url, {
+    method: 'POST',
+    headers: {
+      Authorization: `Bearer ${token}`,
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({
+      fields: {
+        Title: caseId,
+        NameofClient: data.fullName || '',
+        ContactNo: data.contactNumber || '',
+        EmailAddress: data.email || '',
+        ResidentialGPSAddress: data.location || '',
+        ModeofComplaint: data.mode || 'Website',
+        Gender: data.gender || '',
+        Nationality: data.nationality || 'Ghanaian',
+        MigrationStatus: data.migrationStatus || '',
+        SummaryofComplaint: data.situation || '',
+        CommentsRemarks: data.otherInfo || '',
+        CaseStatus: 'New',
+        Receivedby: 'Public Form',
+        UrgencyLevel: 'Medium',
+        SupportType: data.supportType || '',
+      },
+    }),
+  });
+
+  if (!response.ok) {
+    const err = await response.text();
+    throw new Error(`Failed to create case: ${err}`);
+  }
+
+  const result = await response.json();
+  return { caseId, itemId: result.id };
 }

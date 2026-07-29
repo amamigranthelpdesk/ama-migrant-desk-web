@@ -68,6 +68,64 @@ export interface Translation {
     openFormButton: string;
     nextStepsBody: string;
   };
+  form: {
+    tabSubmitOnline: string;
+    tabQrCode: string;
+    tabDirectLink: string;
+    fullNameLabel: string;
+    fullNamePlaceholder: string;
+    contactNumberLabel: string;
+    contactNumberPlaceholder: string;
+    emailLabel: string;
+    emailPlaceholder: string;
+    locationLabel: string;
+    locationPlaceholder: string;
+    modeLabel: string;
+    modeTelephone: string;
+    modeWalkIn: string;
+    modeWebsite: string;
+    modeSocialMedia: string;
+    genderLabel: string;
+    genderFemale: string;
+    genderMale: string;
+    genderPreferNotToSay: string;
+    genderOther: string;
+    nationalityLabel: string;
+    migrationStatusLabel: string;
+    migrationStatusReturnee: string;
+    migrationStatusReturneeDesc: string;
+    migrationStatusInTransit: string;
+    migrationStatusInTransitDesc: string;
+    migrationStatusAsylumSeeker: string;
+    migrationStatusAsylumSeekerDesc: string;
+    migrationStatusRefugee: string;
+    migrationStatusRefugeeDesc: string;
+    migrationStatusOther: string;
+    supportTypeLabel: string;
+    supportProtection: string;
+    supportMedical: string;
+    supportLegal: string;
+    supportFinancial: string;
+    supportCounselling: string;
+    supportDocumentation: string;
+    supportReintegration: string;
+    supportOther: string;
+    situationLabel: string;
+    situationPlaceholder: string;
+    otherInfoLabel: string;
+    consentLabel: string;
+    requiredError: string;
+    consentError: string;
+    submitCaseButton: string;
+    submitting: string;
+    successHeading: string;
+    successKeepSafe: string;
+    successAgentContact: string;
+    submitAnotherButton: string;
+    errorBanner: string;
+    directLinkExplain: string;
+    openMsFormButton: string;
+  };
   status: {
     title: string;
     intro: string;
@@ -205,6 +263,65 @@ const en: Translation = {
     openFormButton: 'Open Form',
     nextStepsBody:
       'After submitting you will receive a case reference number by email if you provided one. An agent will contact you within 2 working days.',
+  },
+  form: {
+    tabSubmitOnline: 'Submit Online',
+    tabQrCode: 'QR Code',
+    tabDirectLink: 'Direct Link',
+    fullNameLabel: 'Full Name',
+    fullNamePlaceholder: 'Your full name',
+    contactNumberLabel: 'Contact Number',
+    contactNumberPlaceholder: 'e.g. 0244 562 693',
+    emailLabel: 'Email Address',
+    emailPlaceholder: 'your@email.com',
+    locationLabel: 'Location / Area of Residence',
+    locationPlaceholder: 'e.g. Nima, Accra',
+    modeLabel: 'Preferred Mode of Contact',
+    modeTelephone: 'Telephone',
+    modeWalkIn: 'Walk-in',
+    modeWebsite: 'Website',
+    modeSocialMedia: 'Social Media',
+    genderLabel: 'Gender',
+    genderFemale: 'Female',
+    genderMale: 'Male',
+    genderPreferNotToSay: 'Prefer not to say',
+    genderOther: 'Other',
+    nationalityLabel: 'Nationality',
+    migrationStatusLabel: 'Migration Status',
+    migrationStatusReturnee: 'Returnee',
+    migrationStatusReturneeDesc: 'I returned to Ghana from another country',
+    migrationStatusInTransit: 'In-Transit',
+    migrationStatusInTransitDesc: 'I am passing through Ghana',
+    migrationStatusAsylumSeeker: 'Asylum Seeker',
+    migrationStatusAsylumSeekerDesc: 'I am seeking protection',
+    migrationStatusRefugee: 'Refugee',
+    migrationStatusRefugeeDesc: 'I have been officially recognised as a refugee',
+    migrationStatusOther: 'Other',
+    supportTypeLabel: 'What type of support do you need?',
+    supportProtection: 'Protection from abuse or violence',
+    supportMedical: 'Medical assistance',
+    supportLegal: 'Legal support',
+    supportFinancial: 'Financial assistance',
+    supportCounselling: 'Counselling',
+    supportDocumentation: 'Documentation help',
+    supportReintegration: 'Reintegration support',
+    supportOther: 'Other',
+    situationLabel: 'Please describe your situation',
+    situationPlaceholder: 'Date/time of incident, location, what happened...',
+    otherInfoLabel: 'Any other information',
+    consentLabel:
+      'I consent to the AMA Migrant Desk collecting and processing my personal information for the purpose of providing migrant assistance services, in accordance with the Ghana Data Protection Act 2012.',
+    requiredError: 'Required field',
+    consentError: 'You must consent before submitting',
+    submitCaseButton: 'Submit Case →',
+    submitting: 'Submitting...',
+    successHeading: 'Case Submitted Successfully',
+    successKeepSafe: 'Please keep this reference number safe.',
+    successAgentContact: 'An agent will contact you within 2 working days.',
+    submitAnotherButton: 'Submit Another Case',
+    errorBanner: 'Failed to submit case. Please try again or use the QR code to submit via the form.',
+    directLinkExplain: 'Prefer to fill out the Microsoft Form directly? Use the button below — it opens in a new tab.',
+    openMsFormButton: 'Open Microsoft Form →',
   },
   status: {
     title: 'Check Case Status',
@@ -351,6 +468,67 @@ const fr: Translation = {
     nextStepsBody:
       'Après avoir soumis, vous recevrez un numéro de référence par e-mail si vous en avez fourni un. Un agent vous contactera dans les 2 jours ouvrables.',
   },
+  form: {
+    tabSubmitOnline: 'Soumettre en ligne',
+    tabQrCode: 'Code QR',
+    tabDirectLink: 'Lien direct',
+    fullNameLabel: 'Nom complet',
+    fullNamePlaceholder: 'Votre nom complet',
+    contactNumberLabel: 'Numéro de contact',
+    contactNumberPlaceholder: 'p. ex. 0244 562 693',
+    emailLabel: 'Adresse e-mail',
+    emailPlaceholder: 'votre@email.com',
+    locationLabel: 'Lieu / Zone de résidence',
+    locationPlaceholder: 'p. ex. Nima, Accra',
+    modeLabel: 'Mode de contact préféré',
+    modeTelephone: 'Téléphone',
+    modeWalkIn: 'Visite sur place',
+    modeWebsite: 'Site web',
+    modeSocialMedia: 'Réseaux sociaux',
+    genderLabel: 'Genre',
+    genderFemale: 'Femme',
+    genderMale: 'Homme',
+    genderPreferNotToSay: 'Préfère ne pas dire',
+    genderOther: 'Autre',
+    nationalityLabel: 'Nationalité',
+    migrationStatusLabel: 'Statut migratoire',
+    migrationStatusReturnee: 'Rapatrié(e)',
+    migrationStatusReturneeDesc: 'Je suis revenu(e) au Ghana depuis un autre pays',
+    migrationStatusInTransit: 'En transit',
+    migrationStatusInTransitDesc: 'Je suis de passage au Ghana',
+    migrationStatusAsylumSeeker: "Demandeur d'asile",
+    migrationStatusAsylumSeekerDesc: 'Je recherche une protection',
+    migrationStatusRefugee: 'Réfugié(e)',
+    migrationStatusRefugeeDesc: 'J’ai été officiellement reconnu(e) comme réfugié(e)',
+    migrationStatusOther: 'Autre',
+    supportTypeLabel: "Quel type de soutien vous faut-il ?",
+    supportProtection: "Protection contre les abus ou la violence",
+    supportMedical: 'Assistance médicale',
+    supportLegal: 'Soutien juridique',
+    supportFinancial: 'Aide financière',
+    supportCounselling: 'Counselling',
+    supportDocumentation: 'Aide à la documentation',
+    supportReintegration: 'Soutien à la réintégration',
+    supportOther: 'Autre',
+    situationLabel: 'Veuillez décrire votre situation',
+    situationPlaceholder: "Date/heure de l'incident, lieu, ce qui s'est passé...",
+    otherInfoLabel: 'Toute autre information',
+    consentLabel:
+      "Je consens à ce que le Bureau des migrants de l'AMA collecte et traite mes informations personnelles dans le but de fournir des services d'assistance aux migrants, conformément à la loi ghanéenne sur la protection des données de 2012.",
+    requiredError: 'Champ requis',
+    consentError: 'Vous devez donner votre consentement avant de soumettre',
+    submitCaseButton: 'Soumettre le cas →',
+    submitting: 'Envoi en cours...',
+    successHeading: 'Cas soumis avec succès',
+    successKeepSafe: 'Veuillez conserver ce numéro de référence en lieu sûr.',
+    successAgentContact: 'Un agent vous contactera dans les 2 jours ouvrables.',
+    submitAnotherButton: 'Soumettre un autre cas',
+    errorBanner:
+      "Échec de la soumission du cas. Veuillez réessayer ou utiliser le code QR pour soumettre via le formulaire.",
+    directLinkExplain:
+      'Vous préférez remplir le formulaire Microsoft directement ? Utilisez le bouton ci-dessous — il s’ouvre dans un nouvel onglet.',
+    openMsFormButton: 'Ouvrir le formulaire Microsoft →',
+  },
   status: {
     title: 'Vérifier le statut du cas',
     intro:
@@ -496,6 +674,66 @@ const es: Translation = {
     nextStepsBody:
       'Después de enviar recibirá un número de referencia por correo electrónico si proporcionó uno. Un agente le contactará en 2 días hábiles.',
   },
+  form: {
+    tabSubmitOnline: 'Enviar en línea',
+    tabQrCode: 'Código QR',
+    tabDirectLink: 'Enlace directo',
+    fullNameLabel: 'Nombre completo',
+    fullNamePlaceholder: 'Su nombre completo',
+    contactNumberLabel: 'Número de contacto',
+    contactNumberPlaceholder: 'p. ej. 0244 562 693',
+    emailLabel: 'Correo electrónico',
+    emailPlaceholder: 'su@email.com',
+    locationLabel: 'Ubicación / Área de residencia',
+    locationPlaceholder: 'p. ej. Nima, Accra',
+    modeLabel: 'Modo de contacto preferido',
+    modeTelephone: 'Teléfono',
+    modeWalkIn: 'Visita presencial',
+    modeWebsite: 'Sitio web',
+    modeSocialMedia: 'Redes sociales',
+    genderLabel: 'Género',
+    genderFemale: 'Mujer',
+    genderMale: 'Hombre',
+    genderPreferNotToSay: 'Prefiere no decir',
+    genderOther: 'Otro',
+    nationalityLabel: 'Nacionalidad',
+    migrationStatusLabel: 'Estatus migratorio',
+    migrationStatusReturnee: 'Retornado/a',
+    migrationStatusReturneeDesc: 'Regresé a Ghana desde otro país',
+    migrationStatusInTransit: 'En tránsito',
+    migrationStatusInTransitDesc: 'Estoy de paso por Ghana',
+    migrationStatusAsylumSeeker: 'Solicitante de asilo',
+    migrationStatusAsylumSeekerDesc: 'Estoy buscando protección',
+    migrationStatusRefugee: 'Refugiado/a',
+    migrationStatusRefugeeDesc: 'He sido reconocido/a oficialmente como refugiado/a',
+    migrationStatusOther: 'Otro',
+    supportTypeLabel: '¿Qué tipo de apoyo necesita?',
+    supportProtection: 'Protección contra abuso o violencia',
+    supportMedical: 'Asistencia médica',
+    supportLegal: 'Apoyo legal',
+    supportFinancial: 'Asistencia financiera',
+    supportCounselling: 'Asesoramiento',
+    supportDocumentation: 'Ayuda con documentación',
+    supportReintegration: 'Apoyo de reintegración',
+    supportOther: 'Otro',
+    situationLabel: 'Describa su situación',
+    situationPlaceholder: 'Fecha/hora del incidente, lugar, qué sucedió...',
+    otherInfoLabel: 'Cualquier otra información',
+    consentLabel:
+      'Doy mi consentimiento para que la Oficina de Migrantes de la AMA recopile y procese mi información personal con el fin de brindar servicios de asistencia a migrantes, de conformidad con la Ley de Protección de Datos de Ghana de 2012.',
+    requiredError: 'Campo obligatorio',
+    consentError: 'Debe dar su consentimiento antes de enviar',
+    submitCaseButton: 'Enviar caso →',
+    submitting: 'Enviando...',
+    successHeading: 'Caso enviado con éxito',
+    successKeepSafe: 'Guarde este número de referencia en un lugar seguro.',
+    successAgentContact: 'Un agente le contactará en 2 días hábiles.',
+    submitAnotherButton: 'Enviar otro caso',
+    errorBanner: 'No se pudo enviar el caso. Intente de nuevo o use el código QR para enviarlo a través del formulario.',
+    directLinkExplain:
+      '¿Prefiere completar el formulario de Microsoft directamente? Use el botón de abajo — se abre en una nueva pestaña.',
+    openMsFormButton: 'Abrir formulario de Microsoft →',
+  },
   status: {
     title: 'Consultar estado del caso',
     intro:
@@ -639,6 +877,65 @@ const ar: Translation = {
     openFormButton: 'فتح النموذج',
     nextStepsBody:
       'بعد الإرسال ستتلقى رقم مرجعي عبر البريد الإلكتروني إذا قدمته. سيتصل بك أحد الموظفين خلال يومي عمل.',
+  },
+  form: {
+    tabSubmitOnline: 'التقديم عبر الإنترنت',
+    tabQrCode: 'رمز QR',
+    tabDirectLink: 'رابط مباشر',
+    fullNameLabel: 'الاسم الكامل',
+    fullNamePlaceholder: 'اسمك الكامل',
+    contactNumberLabel: 'رقم الاتصال',
+    contactNumberPlaceholder: 'مثال: 0244 562 693',
+    emailLabel: 'البريد الإلكتروني',
+    emailPlaceholder: 'your@email.com',
+    locationLabel: 'الموقع / منطقة الإقامة',
+    locationPlaceholder: 'مثال: نيما، أكرا',
+    modeLabel: 'طريقة الاتصال المفضلة',
+    modeTelephone: 'الهاتف',
+    modeWalkIn: 'زيارة حضورية',
+    modeWebsite: 'الموقع الإلكتروني',
+    modeSocialMedia: 'وسائل التواصل الاجتماعي',
+    genderLabel: 'الجنس',
+    genderFemale: 'أنثى',
+    genderMale: 'ذكر',
+    genderPreferNotToSay: 'أفضل عدم الذكر',
+    genderOther: 'آخر',
+    nationalityLabel: 'الجنسية',
+    migrationStatusLabel: 'الوضع المتعلق بالهجرة',
+    migrationStatusReturnee: 'عائد',
+    migrationStatusReturneeDesc: 'عدت إلى غانا من بلد آخر',
+    migrationStatusInTransit: 'عابر',
+    migrationStatusInTransitDesc: 'أنا مار عبر غانا',
+    migrationStatusAsylumSeeker: 'طالب لجوء',
+    migrationStatusAsylumSeekerDesc: 'أنا أبحث عن الحماية',
+    migrationStatusRefugee: 'لاجئ',
+    migrationStatusRefugeeDesc: 'تم الاعتراف بي رسمياً كلاجئ',
+    migrationStatusOther: 'آخر',
+    supportTypeLabel: 'ما نوع الدعم الذي تحتاجه؟',
+    supportProtection: 'الحماية من الإساءة أو العنف',
+    supportMedical: 'المساعدة الطبية',
+    supportLegal: 'الدعم القانوني',
+    supportFinancial: 'المساعدة المالية',
+    supportCounselling: 'الإرشاد النفسي',
+    supportDocumentation: 'المساعدة في التوثيق',
+    supportReintegration: 'دعم إعادة الإدماج',
+    supportOther: 'آخر',
+    situationLabel: 'يرجى وصف وضعك',
+    situationPlaceholder: 'تاريخ/وقت الحادثة، الموقع، ما الذي حدث...',
+    otherInfoLabel: 'أي معلومات أخرى',
+    consentLabel:
+      'أوافق على قيام مكتب المهاجرين التابع لـ AMA بجمع ومعالجة معلوماتي الشخصية لغرض تقديم خدمات مساعدة المهاجرين، وفقاً لقانون حماية البيانات الغاني لعام 2012.',
+    requiredError: 'حقل مطلوب',
+    consentError: 'يجب الموافقة قبل الإرسال',
+    submitCaseButton: 'إرسال الحالة ←',
+    submitting: 'جارٍ الإرسال...',
+    successHeading: 'تم إرسال الحالة بنجاح',
+    successKeepSafe: 'يرجى الاحتفاظ بهذا الرقم المرجعي في مكان آمن.',
+    successAgentContact: 'سيتصل بك أحد الموظفين خلال يومي عمل.',
+    submitAnotherButton: 'إرسال حالة أخرى',
+    errorBanner: 'فشل إرسال الحالة. يرجى المحاولة مرة أخرى أو استخدام رمز QR للإرسال عبر النموذج.',
+    directLinkExplain: 'هل تفضل تعبئة نموذج مايكروسوفت مباشرة؟ استخدم الزر أدناه — يفتح في علامة تبويب جديدة.',
+    openMsFormButton: 'فتح نموذج مايكروسوفت ←',
   },
   status: {
     title: 'التحقق من حالة القضية',

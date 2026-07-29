@@ -1,26 +1,19 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { getCaseStatus } from '@/lib/graph';
 
-export async function POST(request: NextRequest) {
+export async function POST(req: NextRequest) {
   try {
-    const { caseId, contactNumber } = await request.json();
-
+    const { caseId, contactNumber } = await req.json();
     if (!caseId || !contactNumber) {
-      return NextResponse.json({ found: false, message: 'Case reference and contact number are required' }, { status: 400 });
+      return NextResponse.json({ error: 'Case ID and contact number are required' }, { status: 400 });
     }
-
-    // TODO: Replace with Microsoft Graph API call once Azure AD app is registered.
-    // GET https://graph.microsoft.com/v1.0/sites/{siteId}/lists/{listId}/items
-    // Filter: fields/Title eq '{caseId}' and fields/ContactNo eq '{contactNumber}'
-    // See lib/graph.ts for the full implementation, ready to uncomment.
-    const result = await getCaseStatus(caseId, contactNumber);
-
+    const result = await getCaseStatus(caseId.trim(), contactNumber.trim());
     if (!result) {
-      return NextResponse.json({ found: false, message: 'Graph API not yet configured' });
+      return NextResponse.json({ found: false }, { status: 200 });
     }
-
     return NextResponse.json({ found: true, case: result });
   } catch (error) {
-    return NextResponse.json({ found: false, message: 'Failed to check case status' }, { status: 500 });
+    console.error('Status lookup error:', error);
+    return NextResponse.json({ error: 'Failed to look up case status' }, { status: 500 });
   }
 }
