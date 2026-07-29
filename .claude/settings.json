@@ -21,7 +21,9 @@
       "Read(//tmp/**)",
       "Bash(cat /tmp/dev.log | tail -40)",
       "Bash(kill 1314)",
-      "Bash(pkill -f \"next dev\")"
+      "Bash(pkill -f \"next dev\")",
+      "Bash(ls -la \"/c/Users/Gertrude/\" 2>&1 | head -40)",
+      "Read(//c/Users/Gertrude//**)"
     ]
   }
 }
