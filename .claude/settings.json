@@ -1,0 +1,27 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(npm install *)",
+      "Bash(npm --version)",
+      "Bash(cat /c/nvm4w/nodejs/npm 2>&1 | head -30)",
+      "Read(//c/nvm4w/nodejs/**)",
+      "Bash(ls -la /c/nvm4w/nodejs/ 2>&1 | head -20; echo \"---\"; ls -la /c/nvm4w/nodejs/node_modules/npm/bin/ 2>&1 | head -10)",
+      "Read(//c/nvm4w/nodejs//**)",
+      "Read(//c/nvm4w/nodejs/node_modules/npm/bin//**)",
+      "PowerShell(Get-Item \"C:\\\\nvm4w\\\\nodejs\" | Select-Object LinkType, Target, FullName; Write-Output \"---\"; \\(Get-Command node\\).Source; Write-Output \"---\"; $env:PATH -split ';' | Select-String -Pattern \"nvm|node\")",
+      "PowerShell(& \"C:\\\\nvm4w\\\\nodejs\\\\node.exe\" --version)",
+      "PowerShell(& \"C:\\\\nvm4w\\\\nodejs\\\\npm.cmd\" --version)",
+      "Read(//c/Program Files/**)",
+      "PowerShell(Get-Command winget -ErrorAction SilentlyContinue)",
+      "PowerShell(winget --version 2>&1)",
+      "PowerShell(winget install OpenJS.NodeJS.LTS --silent --accept-package-agreements --accept-source-agreements)",
+      "Read(//c/Program Files/nodejs/**)",
+      "Bash(curl -s -o /dev/null -w \"%{http_code}\" http://localhost:3000/)",
+      "Bash(break)",
+      "Read(//tmp/**)",
+      "Bash(cat /tmp/dev.log | tail -40)",
+      "Bash(kill 1314)",
+      "Bash(pkill -f \"next dev\")"
+    ]
+  }
+}
