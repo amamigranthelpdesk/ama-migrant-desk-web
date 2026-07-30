@@ -55,6 +55,18 @@ function getSpeechRecognitionCtor(): (new () => SpeechRecognitionLike) | null {
   return w.SpeechRecognition ?? w.webkitSpeechRecognition ?? null;
 }
 
+const SUPPORTED_SOURCE_LANGS = ['en', 'fr', 'es', 'ar', 'tw', 'ee', 'ha', 'pt'];
+
+function getSourceLang(selected: string): string {
+  if (selected === 'auto') {
+    // MyMemory does not support "auto" as a language code — use the
+    // browser's language as a hint, falling back to English.
+    const browserLang = typeof navigator !== 'undefined' ? navigator.language?.slice(0, 2) : undefined;
+    return browserLang && SUPPORTED_SOURCE_LANGS.includes(browserLang) ? browserLang : 'en';
+  }
+  return selected;
+}
+
 function speak(text: string, langCode: string) {
   if (typeof window === 'undefined' || !window.speechSynthesis || !text) return;
   const utterance = new SpeechSynthesisUtterance(text);
@@ -207,7 +219,7 @@ export default function TranslatePage() {
     if (!inputText.trim() || loading) return;
     setLoading(true);
     try {
-      const result = await translate(inputText, sourceLang, targetLang);
+      const result = await translate(inputText, getSourceLang(sourceLang), targetLang);
       setOutputText(result.translation);
     } catch (error) {
       setOutputText('');
@@ -257,6 +269,9 @@ export default function TranslatePage() {
                 ))}
               </select>
             </div>
+            {sourceLang === 'auto' && (
+              <p className="mt-1 text-xs text-gray-400">{t.translatePage.autoDetectInfo}</p>
+            )}
             <textarea
               value={inputText}
               onChange={(e) => setInputText(e.target.value)}

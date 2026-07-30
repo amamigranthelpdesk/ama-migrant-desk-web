@@ -33,6 +33,16 @@ export interface Translation {
     cardTranslateDesc: string;
     cardChatTitle: string;
     cardChatDesc: string;
+    getStarted: string;
+    heroImage1Alt: string;
+    heroImage2Alt: string;
+    heroImage3Alt: string;
+    statAvailabilityValue: string;
+    statAvailabilityLabel: string;
+    statLanguagesValue: string;
+    statLanguagesLabel: string;
+    statResponseValue: string;
+    statResponseLabel: string;
     servicesTitle: string;
     servicesSubtitle: string;
     serviceProtectionTitle: string;
@@ -162,6 +172,7 @@ export interface Translation {
     copied: string;
     swapButton: string;
     autoDetect: string;
+    autoDetectInfo: string;
     voiceTitle: string;
     voiceExplain: string;
     agentLabel: string;
@@ -222,13 +233,23 @@ const en: Translation = {
     heroSubtitle:
       'The AMA Migrant Desk connects vulnerable migrants in Accra to protection, legal support, medical assistance, and counselling — free, confidential, and in your language.',
     cardSubmitTitle: 'Submit a Case',
-    cardSubmitDesc: 'Tell us what happened. Your case is confidential.',
+    cardSubmitDesc: 'Report your situation securely. An agent will contact you within 2 working days.',
     cardStatusTitle: 'Check My Case',
-    cardStatusDesc: 'See what is happening with a case you already submitted.',
+    cardStatusDesc: 'Track the progress of your submitted case using your reference number.',
     cardTranslateTitle: 'Translation Tool',
-    cardTranslateDesc: 'Translate text or speak with an agent in your language.',
+    cardTranslateDesc: 'Communicate in English, French, Spanish, Arabic, Twi, Ewe and more.',
     cardChatTitle: 'Get Help Now',
-    cardChatDesc: 'Chat with our assistant for quick answers.',
+    cardChatDesc: 'Chat with our AI assistant for immediate guidance and information.',
+    getStarted: 'Get started',
+    heroImage1Alt: 'People receiving assistance',
+    heroImage2Alt: 'Community support',
+    heroImage3Alt: 'Professional consultation',
+    statAvailabilityValue: '24/7',
+    statAvailabilityLabel: 'Online form available',
+    statLanguagesValue: '4',
+    statLanguagesLabel: 'Languages supported',
+    statResponseValue: '2 days',
+    statResponseLabel: 'Agent response time',
     servicesTitle: 'Our Services',
     servicesSubtitle: 'The AMA Migrant Desk offers free support across six areas.',
     serviceProtectionTitle: 'Protection',
@@ -361,7 +382,9 @@ const en: Translation = {
     copyButton: 'Copy',
     copied: 'Copied!',
     swapButton: 'Swap languages',
-    autoDetect: 'Auto-detect',
+    autoDetect: 'Auto-detect (uses browser language)',
+    autoDetectInfo:
+      'Auto-detect uses your browser language setting as a hint. For best results select your language manually.',
     voiceTitle: 'Real-time Voice Conversation',
     voiceExplain:
       'Use this during walk-in client visits. Speak in your language — the client hears it in theirs.',
@@ -428,13 +451,23 @@ const fr: Translation = {
     heroSubtitle:
       "Le Bureau des migrants de l'AMA met en relation les migrants vulnérables d'Accra avec la protection, l'aide juridique, l'assistance médicale et le counselling — gratuit, confidentiel, et dans votre langue.",
     cardSubmitTitle: 'Soumettre un cas',
-    cardSubmitDesc: "Dites-nous ce qui s'est passé. Votre cas est confidentiel.",
+    cardSubmitDesc: "Signalez votre situation en toute sécurité. Un agent vous contactera dans les 2 jours ouvrables.",
     cardStatusTitle: 'Vérifier mon cas',
-    cardStatusDesc: 'Consultez l’état d’un cas que vous avez déjà soumis.',
+    cardStatusDesc: 'Suivez l’avancement de votre cas soumis à l’aide de votre numéro de référence.',
     cardTranslateTitle: 'Outil de traduction',
-    cardTranslateDesc: 'Traduisez un texte ou parlez avec un agent dans votre langue.',
+    cardTranslateDesc: 'Communiquez en anglais, français, espagnol, arabe, twi, éwé et plus.',
     cardChatTitle: "Obtenir de l'aide maintenant",
-    cardChatDesc: 'Discutez avec notre assistant pour des réponses rapides.',
+    cardChatDesc: 'Discutez avec notre assistant IA pour des conseils et informations immédiats.',
+    getStarted: 'Commencer',
+    heroImage1Alt: "Des personnes recevant de l'aide",
+    heroImage2Alt: 'Soutien communautaire',
+    heroImage3Alt: 'Consultation professionnelle',
+    statAvailabilityValue: '24/7',
+    statAvailabilityLabel: 'Formulaire en ligne disponible',
+    statLanguagesValue: '4',
+    statLanguagesLabel: 'Langues prises en charge',
+    statResponseValue: '2 jours',
+    statResponseLabel: "Délai de réponse d'un agent",
     servicesTitle: 'Nos services',
     servicesSubtitle: "Le Bureau des migrants de l'AMA offre un soutien gratuit dans six domaines.",
     serviceProtectionTitle: 'Protection',
@@ -569,7 +602,9 @@ const fr: Translation = {
     copyButton: 'Copier',
     copied: 'Copié !',
     swapButton: 'Inverser les langues',
-    autoDetect: 'Détection automatique',
+    autoDetect: 'Détection automatique (langue du navigateur)',
+    autoDetectInfo:
+      'La détection automatique utilise la langue de votre navigateur comme indice. Pour de meilleurs résultats, sélectionnez votre langue manuellement.',
     voiceTitle: 'Conversation vocale en temps réel',
     voiceExplain:
       'Utilisez ceci lors des visites de clients. Parlez dans votre langue — le client l’entend dans la sienne.',
@@ -636,13 +671,23 @@ const es: Translation = {
     heroSubtitle:
       'La Oficina de Migrantes de la AMA conecta a los migrantes vulnerables de Accra con protección, apoyo legal, asistencia médica y asesoramiento — gratuito, confidencial y en su idioma.',
     cardSubmitTitle: 'Enviar un caso',
-    cardSubmitDesc: 'Cuéntenos qué pasó. Su caso es confidencial.',
+    cardSubmitDesc: 'Reporte su situación de forma segura. Un agente le contactará en 2 días hábiles.',
     cardStatusTitle: 'Consultar mi caso',
-    cardStatusDesc: 'Vea el estado de un caso que ya envió.',
+    cardStatusDesc: 'Siga el progreso de su caso enviado usando su número de referencia.',
     cardTranslateTitle: 'Herramienta de traducción',
-    cardTranslateDesc: 'Traduzca texto o hable con un agente en su idioma.',
+    cardTranslateDesc: 'Comuníquese en inglés, francés, español, árabe, twi, ewé y más.',
     cardChatTitle: 'Obtener ayuda ahora',
-    cardChatDesc: 'Chatee con nuestro asistente para respuestas rápidas.',
+    cardChatDesc: 'Chatee con nuestro asistente de IA para obtener orientación e información inmediatas.',
+    getStarted: 'Comenzar',
+    heroImage1Alt: 'Personas recibiendo asistencia',
+    heroImage2Alt: 'Apoyo comunitario',
+    heroImage3Alt: 'Consulta profesional',
+    statAvailabilityValue: '24/7',
+    statAvailabilityLabel: 'Formulario en línea disponible',
+    statLanguagesValue: '4',
+    statLanguagesLabel: 'Idiomas admitidos',
+    statResponseValue: '2 días',
+    statResponseLabel: 'Tiempo de respuesta del agente',
     servicesTitle: 'Nuestros servicios',
     servicesSubtitle: 'La Oficina de Migrantes de la AMA ofrece apoyo gratuito en seis áreas.',
     serviceProtectionTitle: 'Protección',
@@ -776,7 +821,9 @@ const es: Translation = {
     copyButton: 'Copiar',
     copied: '¡Copiado!',
     swapButton: 'Intercambiar idiomas',
-    autoDetect: 'Detección automática',
+    autoDetect: 'Detección automática (usa el idioma del navegador)',
+    autoDetectInfo:
+      'La detección automática usa el idioma de su navegador como referencia. Para mejores resultados, seleccione su idioma manualmente.',
     voiceTitle: 'Conversación de voz en tiempo real',
     voiceExplain:
       'Use esto durante las visitas presenciales de clientes. Hable en su idioma — el cliente lo escucha en el suyo.',
@@ -843,13 +890,23 @@ const ar: Translation = {
     heroSubtitle:
       'يربط مكتب المهاجرين التابع لـ AMA المهاجرين الضعفاء في أكرا بالحماية والدعم القانوني والمساعدة الطبية والإرشاد النفسي — مجاناً وسرياً وبلغتك.',
     cardSubmitTitle: 'تقديم حالة',
-    cardSubmitDesc: 'أخبرنا بما حدث. حالتك سرية.',
+    cardSubmitDesc: 'أبلغ عن حالتك بأمان. سيتصل بك أحد الموظفين خلال يومي عمل.',
     cardStatusTitle: 'التحقق من حالتي',
-    cardStatusDesc: 'اطّلع على ما يجري مع حالة قدمتها من قبل.',
+    cardStatusDesc: 'تابع تقدم حالتك المقدمة باستخدام الرقم المرجعي الخاص بك.',
     cardTranslateTitle: 'أداة الترجمة',
-    cardTranslateDesc: 'ترجم نصاً أو تحدث مع وكيل بلغتك.',
+    cardTranslateDesc: 'تواصل بالإنجليزية والفرنسية والإسبانية والعربية والتوي والإيوي والمزيد.',
     cardChatTitle: 'احصل على المساعدة الآن',
-    cardChatDesc: 'تحدث مع مساعدنا للحصول على إجابات سريعة.',
+    cardChatDesc: 'تحدث مع مساعدنا الذكي للحصول على إرشادات ومعلومات فورية.',
+    getStarted: 'ابدأ الآن',
+    heroImage1Alt: 'أشخاص يتلقون المساعدة',
+    heroImage2Alt: 'الدعم المجتمعي',
+    heroImage3Alt: 'استشارة مهنية',
+    statAvailabilityValue: '24/7',
+    statAvailabilityLabel: 'النموذج متاح عبر الإنترنت',
+    statLanguagesValue: '4',
+    statLanguagesLabel: 'لغات مدعومة',
+    statResponseValue: 'يومان',
+    statResponseLabel: 'وقت استجابة الموظف',
     servicesTitle: 'خدماتنا',
     servicesSubtitle: 'يقدم مكتب المهاجرين التابع لـ AMA دعماً مجانياً في ستة مجالات.',
     serviceProtectionTitle: 'الحماية',
@@ -981,7 +1038,8 @@ const ar: Translation = {
     copyButton: 'نسخ',
     copied: 'تم النسخ!',
     swapButton: 'تبديل اللغات',
-    autoDetect: 'اكتشاف تلقائي',
+    autoDetect: 'اكتشاف تلقائي (يستخدم لغة المتصفح)',
+    autoDetectInfo: 'يستخدم الاكتشاف التلقائي إعداد لغة متصفحك كمؤشر. للحصول على أفضل النتائج، اختر لغتك يدوياً.',
     voiceTitle: 'محادثة صوتية فورية',
     voiceExplain: 'استخدم هذا أثناء زيارات العملاء الحضورية. تحدث بلغتك — يسمعها العميل بلغته.',
     agentLabel: 'الوكيل',
