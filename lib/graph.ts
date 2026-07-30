@@ -108,11 +108,10 @@ export async function createCase(data: Record<string, string>): Promise<CreateCa
         Nationality: data.nationality || 'Ghanaian',
         MigrationStatus: data.migrationStatus || '',
         SummaryofComplaint: data.situation || '',
-        CommentsRemarks: data.otherInfo || '',
+        Comments_x002f_Remarks: data.otherInfo || '',
         CaseStatus: 'New',
         Receivedby: 'Public Form',
         UrgencyLevel: 'Medium',
-        SupportType: data.supportType || '',
       },
     }),
   });
