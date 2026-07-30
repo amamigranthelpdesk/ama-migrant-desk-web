@@ -9,6 +9,7 @@ export interface CaseStatusResult {
   urgency: string | null;
   modified: string;
   summary: string | null;
+  clientName: string | null;
 }
 
 export interface CreateCaseResult {
@@ -47,21 +48,40 @@ async function getAccessToken(): Promise<string> {
 }
 
 /**
- * Looks up a case by reference number and contact number in the
- * SharePoint list backing the Operations Centre.
+ * Looks up a case by reference number only in the SharePoint list
+ * backing the Operations Centre.
  */
-export async function getCaseStatus(caseId: string, contactNumber: string): Promise<CaseStatusResult | null> {
+export async function getCaseStatus(caseId: string): Promise<CaseStatusResult | null> {
   const token = await getAccessToken();
-  const filter = encodeURIComponent(`fields/Title eq '${caseId}' and fields/ContactNo eq '${contactNumber}'`);
-  const url = `https://graph.microsoft.com/v1.0/sites/${SITE_ID}/lists/${LIST_ID}/items?expand=fields&$filter=${filter}&$select=fields`;
+
+  console.log('[Graph] Looking up case:', caseId);
+  console.log('[Graph] Site ID:', SITE_ID);
+  console.log('[Graph] List ID:', LIST_ID);
+
+  const filter = encodeURIComponent(`fields/Title eq '${caseId}'`);
+  const url = `https://graph.microsoft.com/v1.0/sites/${SITE_ID}/lists/${LIST_ID}/items?expand=fields&$filter=${filter}`;
+
+  console.log('[Graph] URL:', url);
 
   const response = await fetch(url, {
-    headers: { Authorization: `Bearer ${token}`, Accept: 'application/json' },
+    headers: {
+      Authorization: `Bearer ${token}`,
+      Accept: 'application/json',
+      ConsistencyLevel: 'eventual',
+      Prefer: 'HonorNonIndexedQueriesWarningMayFailRandomly',
+    },
   });
 
-  if (!response.ok) throw new Error('Graph API request failed');
+  const responseText = await response.text();
+  console.log('[Graph] Status:', response.status);
+  console.log('[Graph] Response:', responseText.slice(0, 500));
 
-  const data = await response.json();
+  if (!response.ok) {
+    throw new Error(`Graph API request failed: ${response.status} ${responseText}`);
+  }
+
+  const data = JSON.parse(responseText);
+
   if (!data.value || data.value.length === 0) return null;
 
   const fields = data.value[0].fields;
@@ -74,6 +94,7 @@ export async function getCaseStatus(caseId: string, contactNumber: string): Prom
     urgency: fields.UrgencyLevel ?? null,
     modified: fields.Modified,
     summary: fields.SummaryofComplaint ?? null,
+    clientName: fields.NameofClient ?? null,
   };
 }
 

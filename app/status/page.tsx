@@ -19,14 +19,13 @@ const STATUS_MEANING_KEY: Record<string, keyof ReturnType<typeof useTranslation>
 export default function StatusPage() {
   const { t } = useTranslation();
   const [caseId, setCaseId] = useState('');
-  const [contactNumber, setContactNumber] = useState('');
   const [state, setState] = useState<FetchState>('idle');
   const [result, setResult] = useState<CaseStatusResult | null>(null);
   const [message, setMessage] = useState<string>('');
 
   async function handleSubmit(event: FormEvent) {
     event.preventDefault();
-    if (!caseId.trim() || !contactNumber.trim()) return;
+    if (!caseId.trim()) return;
 
     setState('loading');
     setResult(null);
@@ -35,7 +34,7 @@ export default function StatusPage() {
       const response = await fetch('/api/status', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ caseId: caseId.trim(), contactNumber: contactNumber.trim() }),
+        body: JSON.stringify({ caseId: caseId.trim() }),
       });
       const data = await response.json();
 
@@ -70,21 +69,6 @@ export default function StatusPage() {
             value={caseId}
             onChange={(e) => setCaseId(e.target.value)}
             placeholder={t.status.caseIdPlaceholder}
-            required
-            className="mt-2 w-full rounded-lg border border-gray-300 px-4 py-3 text-sm focus:border-ama-green focus:outline-none"
-          />
-        </div>
-
-        <div>
-          <label htmlFor="contactNumber" className="block text-sm font-bold text-ama-green">
-            {t.status.contactLabel}
-          </label>
-          <input
-            id="contactNumber"
-            type="tel"
-            value={contactNumber}
-            onChange={(e) => setContactNumber(e.target.value)}
-            placeholder={t.status.contactPlaceholder}
             required
             className="mt-2 w-full rounded-lg border border-gray-300 px-4 py-3 text-sm focus:border-ama-green focus:outline-none"
           />
