@@ -112,6 +112,8 @@ export async function createCase(data: Record<string, string>): Promise<CreateCa
         CaseStatus: 'New',
         Receivedby: 'Public Form',
         UrgencyLevel: 'Medium',
+        AssignedPersonnel: 'Samson Asamoah-Okyere',
+        Referredto: 'AMA Social Welfare',
       },
     }),
   });
