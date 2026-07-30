@@ -83,6 +83,9 @@ export default function SubmitPage() {
   const [submitting, setSubmitting] = useState(false);
   const [submitError, setSubmitError] = useState(false);
   const [successCaseId, setSuccessCaseId] = useState<string | null>(null);
+  const [genderOther, setGenderOther] = useState('');
+  const [migrationStatusOther, setMigrationStatusOther] = useState('');
+  const [supportTypeOther, setSupportTypeOther] = useState('');
 
   function updateField<K extends keyof FormState>(key: K, value: FormState[K]) {
     setForm((prev) => ({ ...prev, [key]: value }));
@@ -113,29 +116,39 @@ export default function SubmitPage() {
 
   async function handleSubmit(event: FormEvent) {
     event.preventDefault();
+
+    if (!form.consent) {
+      setErrors((prev) => ({ ...prev, consent: t.form.consentError }));
+      return;
+    }
+
     if (!validate() || submitting) return;
 
     setSubmitting(true);
     setSubmitError(false);
 
     try {
+      const submitData = {
+        fullName: form.fullName.trim(),
+        contactNumber: form.contactNumber.trim(),
+        email: form.email.trim(),
+        location: form.location.trim(),
+        mode: form.mode,
+        gender: form.gender === 'Other' ? genderOther || 'Other' : form.gender,
+        nationality: form.nationality.trim(),
+        migrationStatus: form.migrationStatus === 'Other' ? migrationStatusOther || 'Other' : form.migrationStatus,
+        supportType: form.supportType
+          .map((s) => (s === 'Other' ? `Other: ${supportTypeOther}` : s))
+          .join(', '),
+        situation: form.situation.trim(),
+        otherInfo: form.otherInfo.trim(),
+        consent: form.consent,
+      };
+
       const response = await fetch('/api/submit', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          fullName: form.fullName.trim(),
-          contactNumber: form.contactNumber.trim(),
-          email: form.email.trim(),
-          location: form.location.trim(),
-          mode: form.mode,
-          gender: form.gender,
-          nationality: form.nationality.trim(),
-          migrationStatus: form.migrationStatus,
-          supportType: form.supportType.join(', '),
-          situation: form.situation.trim(),
-          otherInfo: form.otherInfo.trim(),
-          consent: form.consent,
-        }),
+        body: JSON.stringify(submitData),
       });
 
       const data = await response.json();
@@ -157,6 +170,9 @@ export default function SubmitPage() {
     setErrors({});
     setSuccessCaseId(null);
     setSubmitError(false);
+    setGenderOther('');
+    setMigrationStatusOther('');
+    setSupportTypeOther('');
   }
 
   const tabs: { key: TabKey; label: string }[] = [
@@ -324,6 +340,15 @@ export default function SubmitPage() {
                     </option>
                   ))}
                 </select>
+                {form.gender === 'Other' && (
+                  <input
+                    type="text"
+                    value={genderOther}
+                    onChange={(e) => setGenderOther(e.target.value)}
+                    placeholder={t.form.genderOtherPlaceholder}
+                    className="mt-2 w-full rounded-lg border border-gray-300 px-4 py-3 text-sm focus:border-ama-green focus:outline-none focus:ring-2 focus:ring-ama-green/30"
+                  />
+                )}
               </div>
 
               <div>
@@ -368,6 +393,15 @@ export default function SubmitPage() {
                     </label>
                   ))}
                 </div>
+                {form.migrationStatus === 'Other' && (
+                  <input
+                    type="text"
+                    value={migrationStatusOther}
+                    onChange={(e) => setMigrationStatusOther(e.target.value)}
+                    placeholder={t.form.migrationStatusOtherPlaceholder}
+                    className="mt-2 w-full rounded-lg border border-gray-300 px-4 py-3 text-sm focus:border-ama-green focus:outline-none focus:ring-2 focus:ring-ama-green/30"
+                  />
+                )}
               </div>
 
               <div>
@@ -392,6 +426,15 @@ export default function SubmitPage() {
                     </label>
                   ))}
                 </div>
+                {form.supportType.includes('Other') && (
+                  <input
+                    type="text"
+                    value={supportTypeOther}
+                    onChange={(e) => setSupportTypeOther(e.target.value)}
+                    placeholder={t.form.supportOtherPlaceholder}
+                    className="mt-2 w-full rounded-lg border border-gray-300 px-4 py-3 text-sm focus:border-ama-green focus:outline-none focus:ring-2 focus:ring-ama-green/30"
+                  />
+                )}
               </div>
 
               <div>
@@ -439,8 +482,12 @@ export default function SubmitPage() {
 
               <button
                 type="submit"
-                disabled={submitting}
-                className="flex w-full items-center justify-center gap-2 rounded-lg bg-ama-green px-6 py-3 text-sm font-bold text-white transition-opacity hover:opacity-90 disabled:opacity-60"
+                disabled={!form.consent || submitting}
+                className={`flex w-full items-center justify-center gap-2 rounded-lg px-6 py-3 text-sm font-bold text-white transition-all duration-200 ${
+                  !form.consent || submitting
+                    ? 'cursor-not-allowed bg-gray-400 opacity-60'
+                    : 'cursor-pointer bg-ama-green hover:opacity-90'
+                }`}
               >
                 {submitting ? (
                   <>

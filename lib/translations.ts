@@ -90,6 +90,7 @@ export interface Translation {
     genderMale: string;
     genderPreferNotToSay: string;
     genderOther: string;
+    genderOtherPlaceholder: string;
     nationalityLabel: string;
     migrationStatusLabel: string;
     migrationStatusReturnee: string;
@@ -101,6 +102,7 @@ export interface Translation {
     migrationStatusRefugee: string;
     migrationStatusRefugeeDesc: string;
     migrationStatusOther: string;
+    migrationStatusOtherPlaceholder: string;
     supportTypeLabel: string;
     supportProtection: string;
     supportMedical: string;
@@ -110,6 +112,7 @@ export interface Translation {
     supportDocumentation: string;
     supportReintegration: string;
     supportOther: string;
+    supportOtherPlaceholder: string;
     situationLabel: string;
     situationPlaceholder: string;
     otherInfoLabel: string;
@@ -286,6 +289,7 @@ const en: Translation = {
     genderMale: 'Male',
     genderPreferNotToSay: 'Prefer not to say',
     genderOther: 'Other',
+    genderOtherPlaceholder: 'Please specify',
     nationalityLabel: 'Nationality',
     migrationStatusLabel: 'Migration Status',
     migrationStatusReturnee: 'Returnee',
@@ -297,6 +301,7 @@ const en: Translation = {
     migrationStatusRefugee: 'Refugee',
     migrationStatusRefugeeDesc: 'I have been officially recognised as a refugee',
     migrationStatusOther: 'Other',
+    migrationStatusOtherPlaceholder: 'Please describe your migration status',
     supportTypeLabel: 'What type of support do you need?',
     supportProtection: 'Protection from abuse or violence',
     supportMedical: 'Medical assistance',
@@ -306,6 +311,7 @@ const en: Translation = {
     supportDocumentation: 'Documentation help',
     supportReintegration: 'Reintegration support',
     supportOther: 'Other',
+    supportOtherPlaceholder: 'Please describe the support you need',
     situationLabel: 'Please describe your situation',
     situationPlaceholder: 'Date/time of incident, location, what happened...',
     otherInfoLabel: 'Any other information',
@@ -490,6 +496,7 @@ const fr: Translation = {
     genderMale: 'Homme',
     genderPreferNotToSay: 'Préfère ne pas dire',
     genderOther: 'Autre',
+    genderOtherPlaceholder: 'Veuillez préciser',
     nationalityLabel: 'Nationalité',
     migrationStatusLabel: 'Statut migratoire',
     migrationStatusReturnee: 'Rapatrié(e)',
@@ -501,6 +508,7 @@ const fr: Translation = {
     migrationStatusRefugee: 'Réfugié(e)',
     migrationStatusRefugeeDesc: 'J’ai été officiellement reconnu(e) comme réfugié(e)',
     migrationStatusOther: 'Autre',
+    migrationStatusOtherPlaceholder: 'Veuillez décrire votre statut migratoire',
     supportTypeLabel: "Quel type de soutien vous faut-il ?",
     supportProtection: "Protection contre les abus ou la violence",
     supportMedical: 'Assistance médicale',
@@ -510,6 +518,7 @@ const fr: Translation = {
     supportDocumentation: 'Aide à la documentation',
     supportReintegration: 'Soutien à la réintégration',
     supportOther: 'Autre',
+    supportOtherPlaceholder: 'Veuillez décrire le soutien dont vous avez besoin',
     situationLabel: 'Veuillez décrire votre situation',
     situationPlaceholder: "Date/heure de l'incident, lieu, ce qui s'est passé...",
     otherInfoLabel: 'Toute autre information',
@@ -696,6 +705,7 @@ const es: Translation = {
     genderMale: 'Hombre',
     genderPreferNotToSay: 'Prefiere no decir',
     genderOther: 'Otro',
+    genderOtherPlaceholder: 'Por favor especifique',
     nationalityLabel: 'Nacionalidad',
     migrationStatusLabel: 'Estatus migratorio',
     migrationStatusReturnee: 'Retornado/a',
@@ -707,6 +717,7 @@ const es: Translation = {
     migrationStatusRefugee: 'Refugiado/a',
     migrationStatusRefugeeDesc: 'He sido reconocido/a oficialmente como refugiado/a',
     migrationStatusOther: 'Otro',
+    migrationStatusOtherPlaceholder: 'Por favor describa su estatus migratorio',
     supportTypeLabel: '¿Qué tipo de apoyo necesita?',
     supportProtection: 'Protección contra abuso o violencia',
     supportMedical: 'Asistencia médica',
@@ -716,6 +727,7 @@ const es: Translation = {
     supportDocumentation: 'Ayuda con documentación',
     supportReintegration: 'Apoyo de reintegración',
     supportOther: 'Otro',
+    supportOtherPlaceholder: 'Por favor describa el apoyo que necesita',
     situationLabel: 'Describa su situación',
     situationPlaceholder: 'Fecha/hora del incidente, lugar, qué sucedió...',
     otherInfoLabel: 'Cualquier otra información',
@@ -900,6 +912,7 @@ const ar: Translation = {
     genderMale: 'ذكر',
     genderPreferNotToSay: 'أفضل عدم الذكر',
     genderOther: 'آخر',
+    genderOtherPlaceholder: 'يرجى التحديد',
     nationalityLabel: 'الجنسية',
     migrationStatusLabel: 'الوضع المتعلق بالهجرة',
     migrationStatusReturnee: 'عائد',
@@ -911,6 +924,7 @@ const ar: Translation = {
     migrationStatusRefugee: 'لاجئ',
     migrationStatusRefugeeDesc: 'تم الاعتراف بي رسمياً كلاجئ',
     migrationStatusOther: 'آخر',
+    migrationStatusOtherPlaceholder: 'يرجى وصف وضعك المتعلق بالهجرة',
     supportTypeLabel: 'ما نوع الدعم الذي تحتاجه؟',
     supportProtection: 'الحماية من الإساءة أو العنف',
     supportMedical: 'المساعدة الطبية',
@@ -920,6 +934,7 @@ const ar: Translation = {
     supportDocumentation: 'المساعدة في التوثيق',
     supportReintegration: 'دعم إعادة الإدماج',
     supportOther: 'آخر',
+    supportOtherPlaceholder: 'يرجى وصف الدعم الذي تحتاجه',
     situationLabel: 'يرجى وصف وضعك',
     situationPlaceholder: 'تاريخ/وقت الحادثة، الموقع، ما الذي حدث...',
     otherInfoLabel: 'أي معلومات أخرى',
