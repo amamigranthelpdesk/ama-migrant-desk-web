@@ -101,14 +101,14 @@ export async function getCaseStatus(caseId: string): Promise<CaseStatusResult | 
 /**
  * Creates a new case item in the SharePoint list from a public form
  * submission, generating a case reference number in the form
- * AMA-YYMMDDHHMM.
+ * AMA-MIG-MMDDHHMM.
  */
 export async function createCase(data: Record<string, string>): Promise<CreateCaseResult> {
   const token = await getAccessToken();
 
   const now = new Date();
   const pad = (n: number) => n.toString().padStart(2, '0');
-  const caseId = `AMA-${now.getFullYear().toString().slice(2)}${pad(now.getMonth() + 1)}${pad(now.getDate())}${pad(now.getHours())}${pad(now.getMinutes())}`;
+  const caseId = `AMA-MIG-${pad(now.getMonth() + 1)}${pad(now.getDate())}${pad(now.getHours())}${pad(now.getMinutes())}`;
 
   const url = `https://graph.microsoft.com/v1.0/sites/${SITE_ID}/lists/${LIST_ID}/items`;
   const response = await fetch(url, {
