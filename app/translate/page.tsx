@@ -7,22 +7,31 @@ import { translate } from '@/lib/mymemory';
 interface LangOption {
   code: string;
   label: string;
-  speechTag: string;
+  speechCode: string;
 }
 
-const LANG_OPTIONS: LangOption[] = [
-  { code: 'en', label: 'English', speechTag: 'en-US' },
-  { code: 'fr', label: 'French', speechTag: 'fr-FR' },
-  { code: 'es', label: 'Spanish', speechTag: 'es-ES' },
-  { code: 'ar', label: 'Arabic', speechTag: 'ar-SA' },
-  { code: 'tw', label: 'Twi', speechTag: 'en-GH' },
-  { code: 'ee', label: 'Ewe', speechTag: 'en-GH' },
-  { code: 'ha', label: 'Hausa', speechTag: 'ha-NG' },
-  { code: 'pt', label: 'Portuguese', speechTag: 'pt-PT' },
+const LANGUAGES: LangOption[] = [
+  { code: 'en', label: 'English', speechCode: 'en-US' },
+  { code: 'fr', label: 'Français', speechCode: 'fr-FR' },
+  { code: 'es', label: 'Español', speechCode: 'es-ES' },
+  { code: 'ar', label: 'العربية', speechCode: 'ar-SA' },
+  { code: 'pt', label: 'Português', speechCode: 'pt-PT' },
+  { code: 'zh', label: '中文 (Chinese)', speechCode: 'zh-CN' },
+  { code: 'de', label: 'Deutsch', speechCode: 'de-DE' },
+  { code: 'it', label: 'Italiano', speechCode: 'it-IT' },
+  { code: 'ru', label: 'Русский', speechCode: 'ru-RU' },
+  { code: 'sw', label: 'Swahili', speechCode: 'sw-KE' },
+  { code: 'am', label: 'Amharic (አማርኛ)', speechCode: 'am-ET' },
+  { code: 'so', label: 'Somali', speechCode: 'so-SO' },
 ];
 
-function speechTagFor(code: string): string {
-  return LANG_OPTIONS.find((l) => l.code === code)?.speechTag ?? 'en-US';
+const CLIENT_LANGUAGES: LangOption[] = [
+  { code: 'auto', label: '🔍 Auto-detect', speechCode: '' },
+  ...LANGUAGES,
+];
+
+function speechCodeFor(code: string): string {
+  return LANGUAGES.find((l) => l.code === code)?.speechCode ?? 'en-US';
 }
 
 // Minimal ambient types for the Web Speech API, which is not part of
@@ -55,7 +64,7 @@ function getSpeechRecognitionCtor(): (new () => SpeechRecognitionLike) | null {
   return w.SpeechRecognition ?? w.webkitSpeechRecognition ?? null;
 }
 
-const SUPPORTED_SOURCE_LANGS = ['en', 'fr', 'es', 'ar', 'tw', 'ee', 'ha', 'pt'];
+const SUPPORTED_SOURCE_LANGS = LANGUAGES.map((l) => l.code);
 
 function getSourceLang(selected: string): string {
   if (selected === 'auto') {
@@ -67,10 +76,17 @@ function getSourceLang(selected: string): string {
   return selected;
 }
 
+// Speech recognition, unlike MyMemory, natively supports an empty lang
+// string as a hint for the browser to auto-detect the spoken language.
+function getRecognitionLang(langCode: string): string {
+  if (langCode === 'auto') return '';
+  return speechCodeFor(langCode);
+}
+
 function speak(text: string, langCode: string) {
   if (typeof window === 'undefined' || !window.speechSynthesis || !text) return;
   const utterance = new SpeechSynthesisUtterance(text);
-  utterance.lang = speechTagFor(langCode);
+  utterance.lang = speechCodeFor(langCode);
   window.speechSynthesis.cancel();
   window.speechSynthesis.speak(utterance);
 }
@@ -118,7 +134,7 @@ function VoicePanel({
     }
 
     const recognition = new Ctor();
-    recognition.lang = speechTagFor(speakerLangCode);
+    recognition.lang = getRecognitionLang(speakerLangCode);
     recognition.continuous = false;
     recognition.interimResults = false;
 
@@ -126,7 +142,7 @@ function VoicePanel({
       const text = event.results[event.results.length - 1]?.[0]?.transcript ?? '';
       setTranscript(text);
       try {
-        const result = await translate(text, speakerLangCode, listenerLangCode);
+        const result = await translate(text, getSourceLang(speakerLangCode), listenerLangCode);
         setTranslation(result.translation);
         speak(result.translation, listenerLangCode);
       } catch (error) {
@@ -262,7 +278,7 @@ export default function TranslatePage() {
                 className="rounded-md border border-gray-300 px-2 py-1 text-sm"
               >
                 <option value="auto">{t.translatePage.autoDetect}</option>
-                {LANG_OPTIONS.map((lang) => (
+                {LANGUAGES.map((lang) => (
                   <option key={lang.code} value={lang.code}>
                     {lang.label}
                   </option>
@@ -289,7 +305,7 @@ export default function TranslatePage() {
                 onChange={(e) => setTargetLang(e.target.value)}
                 className="rounded-md border border-gray-300 px-2 py-1 text-sm"
               >
-                {LANG_OPTIONS.map((lang) => (
+                {LANGUAGES.map((lang) => (
                   <option key={lang.code} value={lang.code}>
                     {lang.label}
                   </option>
@@ -343,8 +359,8 @@ export default function TranslatePage() {
           <VoicePanel
             label={t.translatePage.agentLabel}
             speakerLangCode={agentLang}
-            listenerLangCode={clientLang}
-            langOptions={LANG_OPTIONS}
+            listenerLangCode={clientLang === 'auto' ? 'en' : clientLang}
+            langOptions={LANGUAGES}
             onLangChange={setAgentLang}
             notSupportedText={t.translatePage.notSupported}
             listeningText={t.translatePage.listening}
@@ -354,7 +370,7 @@ export default function TranslatePage() {
             label={t.translatePage.clientLabel}
             speakerLangCode={clientLang}
             listenerLangCode={agentLang}
-            langOptions={LANG_OPTIONS}
+            langOptions={CLIENT_LANGUAGES}
             onLangChange={setClientLang}
             notSupportedText={t.translatePage.notSupported}
             listeningText={t.translatePage.listening}
