@@ -1,39 +1,46 @@
 import { NextRequest, NextResponse } from 'next/server';
 
-function unauthorized() {
-  return new NextResponse('Authentication required', {
-    status: 401,
-    headers: { 'WWW-Authenticate': 'Basic realm="AMA Migrant Desk - Live Desk (staff only)"' },
-  });
-}
+const PROTECTED_PATHS = [
+  '/agents/live-desk',
+  '/agents/callbacks',
+  '/api/conversations',
+];
 
-export function middleware(request: NextRequest) {
+export function middleware(req: NextRequest) {
+  const { pathname } = req.nextUrl;
+  const isProtected = PROTECTED_PATHS.some(p => pathname.startsWith(p));
+
+  if (!isProtected) return NextResponse.next();
+
+  const authHeader = req.headers.get('authorization');
   const username = process.env.LIVE_DESK_USERNAME;
   const password = process.env.LIVE_DESK_PASSWORD;
 
-  // If credentials aren't configured, fail closed rather than leaving
-  // the staff conversation log open to the public.
   if (!username || !password) {
-    return unauthorized();
+    return new NextResponse('Authentication not configured', { status: 503 });
   }
 
-  const authHeader = request.headers.get('authorization');
-  if (!authHeader?.startsWith('Basic ')) {
-    return unauthorized();
+  if (authHeader) {
+    const base64 = authHeader.replace('Basic ', '');
+    const decoded = Buffer.from(base64, 'base64').toString('utf-8');
+    const [u, p] = decoded.split(':');
+    if (u === username && p === password) {
+      return NextResponse.next();
+    }
   }
 
-  const decoded = Buffer.from(authHeader.slice(6), 'base64').toString('utf-8');
-  const separatorIndex = decoded.indexOf(':');
-  const providedUser = decoded.slice(0, separatorIndex);
-  const providedPass = decoded.slice(separatorIndex + 1);
-
-  if (providedUser !== username || providedPass !== password) {
-    return unauthorized();
-  }
-
-  return NextResponse.next();
+  return new NextResponse('Authentication required', {
+    status: 401,
+    headers: {
+      'WWW-Authenticate': 'Basic realm="AMA Migrant Desk Agent Portal"',
+    },
+  });
 }
 
 export const config = {
-  matcher: ['/live-desk/:path*', '/api/conversations/:path*'],
+  matcher: [
+    '/agents/live-desk/:path*',
+    '/agents/callbacks/:path*',
+    '/api/conversations/:path*',
+  ],
 };

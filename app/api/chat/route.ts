@@ -87,7 +87,13 @@ IMPORTANT RULES:
 - If user says "speak to an agent", "live agent", "human" - tell them no live agents are available right now but offer to log a callback request
 - If user says "call me back", "callback" - switch to MODE 3
 - Keep responses concise - maximum 3 sentences unless giving structured information
-- Always end with a follow-up question or offer of further help`;
+- Always end with a follow-up question or offer of further help
+
+CASE CREATION SIGNAL:
+When the user has answered all intake questions AND confirmed they want to log a case (said "yes" or equivalent), include this exact marker at the very end of your response on a new line:
+[CREATE_CASE:name={client_name}|contact={client_contact}|email={client_email}|nationality={nationality}|migration={migration_status}|support={support_type}|situation={situation_summary}]
+
+Replace each value with what the client actually provided. If a field was not provided use "Not provided". Only include this marker once, when the client explicitly confirms they want to submit.`;
 
 export async function POST(req: NextRequest) {
   try {
@@ -150,12 +156,63 @@ export async function POST(req: NextRequest) {
 
     const responseText = completion.choices[0]?.message?.content || 'I apologise, I could not generate a response. Please try again.';
 
+    // Check if the bot wants to create a case
+    const caseMarkerMatch = responseText.match(/\[CREATE_CASE:([^\]]+)\]/);
+    let finalResponse = responseText.replace(/\[CREATE_CASE:[^\]]+\]/, '').trim();
+    let caseId: string | null = null;
+
+    if (caseMarkerMatch) {
+      try {
+        const params: Record<string, string> = {};
+        caseMarkerMatch[1].split('|').forEach(pair => {
+          const [key, ...valueParts] = pair.split('=');
+          params[key.trim()] = valueParts.join('=').trim();
+        });
+
+        const { createCase } = await import('@/lib/graph');
+        const result = await createCase({
+          fullName: params.name || '',
+          contactNumber: params.contact || '',
+          email: params.email === 'Not provided' ? '' : (params.email || ''),
+          nationality: params.nationality || 'Not provided',
+          migrationStatus: params.migration || '',
+          supportType: params.support || '',
+          situation: params.situation || '',
+          mode: 'Chatbot',
+          otherInfo: 'Case logged via web chatbot',
+        });
+
+        caseId = result.caseId;
+
+        // Update conversation in Supabase with case ID and client info
+        if (convId) {
+          await supabase
+            .from('conversations')
+            .update({
+              case_id: caseId,
+              client_name: params.name || null,
+              client_contact: params.contact || null,
+              client_email: params.email === 'Not provided' ? null : (params.email || null),
+              status: 'resolved',
+            })
+            .eq('id', convId);
+        }
+
+        // Replace the bot response to include the case ID prominently
+        finalResponse = `✅ Your case has been logged successfully!\n\n📋 Your Case Reference Number:\n\n${caseId}\n\nPlease save this number. You can check your case status at any time using the Check My Case page.\n\nAn agent will contact you on ${params.contact} within 2 working days.\n\n${finalResponse}`;
+
+      } catch (error) {
+        console.error('[Chat] Case creation failed:', error);
+        finalResponse += '\n\n⚠️ I was unable to automatically log your case. Please use the Submit a Case page or call the desk directly.';
+      }
+    }
+
     // Save bot response to Supabase
     if (convId) {
       await supabase.from('messages').insert({
         conversation_id: convId,
         role: 'bot',
-        content: responseText,
+        content: finalResponse,
       });
 
       // Update conversation updated_at
@@ -168,8 +225,9 @@ export async function POST(req: NextRequest) {
     // Check if we should extract client info from the conversation
     const fullConversation = messages.map((m: { role: string; content: string }) => `${m.role}: ${m.content}`).join('\n');
 
-    // Simple extraction — look for patterns in the conversation
-    if (convId && messages.length > 4) {
+    // Simple extraction — look for patterns in the conversation (skip if the
+    // case marker already gave us structured name/contact info above)
+    if (convId && !caseMarkerMatch && messages.length > 4) {
       const nameMatch = fullConversation.match(/user: ([A-Z][a-z]+ [A-Z][a-z]+)/);
       const phoneMatch = fullConversation.match(/user: (0[0-9]{9}|\+233[0-9]{9})/);
 
@@ -185,8 +243,9 @@ export async function POST(req: NextRequest) {
     }
 
     return NextResponse.json({
-      response: responseText,
+      response: finalResponse,
       conversationId: convId,
+      caseId,
     });
 
   } catch (error) {
