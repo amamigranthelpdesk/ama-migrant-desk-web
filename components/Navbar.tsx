@@ -125,7 +125,10 @@ export default function Navbar() {
                 marginLeft: 8,
               }}
             >
-              ← Public Site
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                <path d="M19 12H5M12 19l-7-7 7-7" />
+              </svg>
+              Public Site
             </Link>
           ) : (
             <Link
@@ -204,9 +207,15 @@ export default function Navbar() {
                   fontSize: 14,
                   border: '1px solid rgba(255,255,255,0.2)',
                   marginTop: 4,
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: 6,
                 }}
               >
-                ← Public Site
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                  <path d="M19 12H5M12 19l-7-7 7-7" />
+                </svg>
+                Public Site
               </Link>
             ) : (
               <Link

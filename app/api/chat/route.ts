@@ -199,11 +199,11 @@ export async function POST(req: NextRequest) {
         }
 
         // Replace the bot response to include the case ID prominently
-        finalResponse = `✅ Your case has been logged successfully!\n\n📋 Your Case Reference Number:\n\n${caseId}\n\nPlease save this number. You can check your case status at any time using the Check My Case page.\n\nAn agent will contact you on ${params.contact} within 2 working days.\n\n${finalResponse}`;
+        finalResponse = `Your case has been logged successfully!\n\nYour Case Reference Number:\n\n${caseId}\n\nPlease save this number. You can check your case status at any time using the Check My Case page.\n\nAn agent will contact you on ${params.contact} within 2 working days.\n\n${finalResponse}`;
 
       } catch (error) {
         console.error('[Chat] Case creation failed:', error);
-        finalResponse += '\n\n⚠️ I was unable to automatically log your case. Please use the Submit a Case page or call the desk directly.';
+        finalResponse += '\n\nI was unable to automatically log your case. Please use the Submit a Case page or call the desk directly.';
       }
     }
 

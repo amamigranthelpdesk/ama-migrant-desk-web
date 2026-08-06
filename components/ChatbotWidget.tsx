@@ -11,17 +11,73 @@ interface Message {
 }
 
 interface QuickReply {
+  icon: React.ReactNode;
   label: string;
   value: string;
 }
 
 const QUICK_REPLIES_INITIAL: QuickReply[] = [
-  { label: '📝 Log a Case', value: 'I want to log a case and get help' },
-  { label: '🔍 Check Case Status', value: 'How do I check my case status?' },
-  { label: '📞 Request Callback', value: 'I want an agent to call me back' },
-  { label: '❓ What services do you offer?', value: 'What services does the AMA Migrant Desk offer?' },
-  { label: '🏢 Referral organisations', value: 'Tell me about the referral organisations' },
-  { label: '🛡️ What is GBV?', value: 'What is GBV and how can you help?' },
+  {
+    icon: (
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" style={{ marginRight: 6 }}>
+        <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
+        <polyline points="14 2 14 8 20 8" />
+        <line x1="12" y1="18" x2="12" y2="12" />
+        <line x1="9" y1="15" x2="15" y2="15" />
+      </svg>
+    ),
+    label: 'Log a Case',
+    value: 'I want to log a case and get help',
+  },
+  {
+    icon: (
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" style={{ marginRight: 6 }}>
+        <circle cx="11" cy="11" r="8" />
+        <line x1="21" y1="21" x2="16.65" y2="16.65" />
+      </svg>
+    ),
+    label: 'Check Case Status',
+    value: 'How do I check my case status?',
+  },
+  {
+    icon: (
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" style={{ marginRight: 6 }}>
+        <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 13.1 19.79 19.79 0 0 1 1.61 4.5 2 2 0 0 1 3.6 2.32h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 9.91a16 16 0 0 0 6 6l1.06-1.06a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 21.73 17z" />
+      </svg>
+    ),
+    label: 'Request Callback',
+    value: 'I want an agent to call me back',
+  },
+  {
+    icon: (
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" style={{ marginRight: 6 }}>
+        <circle cx="12" cy="12" r="10" />
+        <path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3" />
+        <line x1="12" y1="17" x2="12.01" y2="17" />
+      </svg>
+    ),
+    label: 'What services do you offer?',
+    value: 'What services does the AMA Migrant Desk offer?',
+  },
+  {
+    icon: (
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" style={{ marginRight: 6 }}>
+        <rect x="2" y="7" width="20" height="14" rx="2" ry="2" />
+        <path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16" />
+      </svg>
+    ),
+    label: 'Referral organisations',
+    value: 'Tell me about the referral organisations',
+  },
+  {
+    icon: (
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" style={{ marginRight: 6 }}>
+        <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
+      </svg>
+    ),
+    label: 'What is GBV?',
+    value: 'What is GBV and how can you help?',
+  },
 ];
 
 export const ChatbotWidget: React.FC = () => {
@@ -140,7 +196,7 @@ export const ChatbotWidget: React.FC = () => {
       setShowCallbackForm(false);
       setMessages(prev => [...prev, {
         role: 'assistant',
-        content: `✅ Your callback request has been registered!\n\nAn agent will call you at ${callbackContact} within 2 working days.\n\nIs there anything else I can help you with?`,
+        content: `Your callback request has been registered!\n\nAn agent will call you at ${callbackContact} within 2 working days.\n\nIs there anything else I can help you with?`,
         timestamp: new Date(),
       }]);
     } catch {
@@ -304,8 +360,11 @@ export const ChatbotWidget: React.FC = () => {
                       fontWeight: 500,
                       transition: 'all 0.2s',
                       fontFamily: 'var(--font-body)',
+                      display: 'flex',
+                      alignItems: 'center',
                     }}
                   >
+                    {qr.icon}
                     {qr.label}
                   </button>
                 ))}
@@ -321,8 +380,11 @@ export const ChatbotWidget: React.FC = () => {
                 padding: 16,
                 marginTop: 8,
               }}>
-                <div style={{ fontSize: 13, fontWeight: 700, color: '#1a6b3a', marginBottom: 12 }}>
-                  📞 Request a Callback
+                <div style={{ fontSize: 13, fontWeight: 700, color: '#1a6b3a', marginBottom: 12, display: 'flex', alignItems: 'center' }}>
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" style={{ marginRight: 6 }}>
+                    <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 13.1 19.79 19.79 0 0 1 1.61 4.5 2 2 0 0 1 3.6 2.32h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 9.91a16 16 0 0 0 6 6l1.06-1.06a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 21.73 17z" />
+                  </svg>
+                  Request a Callback
                 </div>
                 <input
                   type="text"

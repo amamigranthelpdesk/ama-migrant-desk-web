@@ -318,15 +318,87 @@ export default function HomePage() {
 
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(260px, 1fr))', gap: 1, background: '#e8e0d0', border: '1px solid #e8e0d0', borderRadius: 16, overflow: 'hidden' }}>
             {[
-              { icon: '🛡️', title: 'Protection', desc: 'Help for survivors of abuse, violence, trafficking, and exploitation' },
-              { icon: '⚖️', title: 'Legal Support', desc: 'Documentation assistance, legal aid referrals, and rights guidance' },
-              { icon: '🏥', title: 'Medical Assistance', desc: 'NHIS registration, emergency healthcare referrals' },
-              { icon: '🤝', title: 'Counselling', desc: 'Psychosocial support and mental health referrals' },
-              { icon: '🏘️', title: 'Reintegration', desc: 'Support for returning migrants including vocational training and grants' },
-              { icon: '📄', title: 'Documentation', desc: 'Help obtaining Ghana Card, passport, and official documents' },
+              {
+                icon: (
+                  <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+                    <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
+                  </svg>
+                ),
+                title: 'Protection',
+                desc: 'Help for survivors of abuse, violence, trafficking, and exploitation',
+              },
+              {
+                icon: (
+                  <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+                    <path d="M12 3v19" />
+                    <path d="M5 8l7-5 7 5" />
+                    <path d="M3 13l4-5 4 5" />
+                    <path d="M17 13l4-5 4 5" transform="translate(-8 0)" />
+                    <path d="M3 17h6M15 17h6" />
+                  </svg>
+                ),
+                title: 'Legal Support',
+                desc: 'Documentation assistance, legal aid referrals, and rights guidance',
+              },
+              {
+                icon: (
+                  <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+                    <path d="M22 12h-4l-3 9L9 3l-3 9H2" />
+                  </svg>
+                ),
+                title: 'Medical Assistance',
+                desc: 'NHIS registration, emergency healthcare referrals',
+              },
+              {
+                icon: (
+                  <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+                    <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2" />
+                    <circle cx="9" cy="7" r="4" />
+                    <path d="M23 21v-2a4 4 0 0 0-3-3.87" />
+                    <path d="M16 3.13a4 4 0 0 1 0 7.75" />
+                  </svg>
+                ),
+                title: 'Counselling',
+                desc: 'Psychosocial support and mental health referrals',
+              },
+              {
+                icon: (
+                  <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+                    <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" />
+                    <polyline points="9 22 9 12 15 12 15 22" />
+                  </svg>
+                ),
+                title: 'Reintegration',
+                desc: 'Support for returning migrants including vocational training and grants',
+              },
+              {
+                icon: (
+                  <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+                    <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
+                    <polyline points="14 2 14 8 20 8" />
+                    <line x1="16" y1="13" x2="8" y2="13" />
+                    <line x1="16" y1="17" x2="8" y2="17" />
+                    <polyline points="10 9 9 9 8 9" />
+                  </svg>
+                ),
+                title: 'Documentation',
+                desc: 'Help obtaining Ghana Card, passport, and official documents',
+              },
             ].map((service, i) => (
               <div key={i} style={{ background: '#ffffff', padding: '28px 24px' }}>
-                <div style={{ fontSize: 28, marginBottom: 12 }}>{service.icon}</div>
+                <div style={{
+                  width: 48,
+                  height: 48,
+                  borderRadius: 12,
+                  background: '#e8f5ee',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  color: '#1a6b3a',
+                  marginBottom: 16,
+                }}>
+                  {service.icon}
+                </div>
                 <h3 style={{ fontFamily: 'var(--font-display)', fontSize: 20, color: '#0d2818', marginBottom: 8, fontWeight: 400 }}>
                   {service.title}
                 </h3>

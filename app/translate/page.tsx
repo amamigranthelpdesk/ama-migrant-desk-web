@@ -26,7 +26,7 @@ const LANGUAGES: LangOption[] = [
 ];
 
 const CLIENT_LANGUAGES: LangOption[] = [
-  { code: 'auto', label: '🔍 Auto-detect', speechCode: '' },
+  { code: 'auto', label: 'Auto-detect', speechCode: '' },
   ...LANGUAGES,
 ];
 

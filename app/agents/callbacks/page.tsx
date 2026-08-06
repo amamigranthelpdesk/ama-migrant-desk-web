@@ -110,8 +110,11 @@ export default function CallbacksPage() {
                   <div style={{ fontSize: 16, fontWeight: 700, color: '#0d1f14' }}>
                     {cb.client_name || 'Unknown Client'}
                   </div>
-                  <div style={{ fontSize: 20, fontWeight: 700, color: '#1a6b3a', marginTop: 4 }}>
-                    📞 {cb.contact_number}
+                  <div style={{ fontSize: 20, fontWeight: 700, color: '#1a6b3a', marginTop: 4, display: 'flex', alignItems: 'center' }}>
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" style={{ marginRight: 6, verticalAlign: 'middle' }}>
+                      <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 13.1 19.79 19.79 0 0 1 1.61 4.5 2 2 0 0 1 3.6 2.32h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 9.91a16 16 0 0 0 6 6l1.06-1.06a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 21.73 17z" />
+                    </svg>
+                    {cb.contact_number}
                   </div>
                   {cb.notes && (
                     <div style={{ fontSize: 13, color: '#4a6b55', marginTop: 8, background: '#f4f8f5', padding: '8px 12px', borderRadius: 8 }}>
@@ -173,7 +176,10 @@ export default function CallbacksPage() {
                       fontFamily: 'Arial, sans-serif',
                     }}
                   >
-                    Mark Resolved ✓
+                    Mark Resolved
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" style={{ marginLeft: 6, verticalAlign: 'middle' }}>
+                      <polyline points="20 6 9 17 4 12" />
+                    </svg>
                   </button>
                 </div>
               )}
@@ -193,7 +199,10 @@ export default function CallbacksPage() {
                     fontFamily: 'Arial, sans-serif',
                   }}
                 >
-                  Mark Resolved ✓
+                  Mark Resolved
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" style={{ marginLeft: 6, verticalAlign: 'middle' }}>
+                    <polyline points="20 6 9 17 4 12" />
+                  </svg>
                 </button>
               )}
             </div>
