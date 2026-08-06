@@ -184,9 +184,9 @@ export default function SubmitPage() {
   return (
     <div className="mx-auto max-w-[600px] px-4 py-12 sm:px-6 lg:px-8">
       <h1 className="text-3xl font-bold text-ama-green sm:text-4xl">{t.submit.title}</h1>
-      <p className="mt-4 text-base leading-relaxed text-gray-700">{t.submit.intro}</p>
+      <p className="mt-4 text-base leading-relaxed text-ink-mid">{t.submit.intro}</p>
 
-      <div className="mt-8 flex gap-2 border-b border-gray-200">
+      <div className="mt-8 flex gap-2 border-b border-parchment-border">
         {tabs.map((tab) => (
           <button
             key={tab.key}
@@ -195,7 +195,7 @@ export default function SubmitPage() {
             className={`rounded-t-lg px-4 py-2 text-sm font-bold transition-colors ${
               activeTab === tab.key
                 ? 'border-b-2 border-ama-green text-ama-green'
-                : 'text-gray-500 hover:text-ama-green'
+                : 'text-ink-light hover:text-ama-green'
             }`}
           >
             {tab.label}
@@ -223,7 +223,7 @@ export default function SubmitPage() {
                 <p className="text-lg font-bold tracking-wide text-ama-green">{successCaseId}</p>
               </div>
 
-              <p className="mx-auto mt-5 max-w-sm text-sm leading-relaxed text-gray-600">
+              <p className="mx-auto mt-5 max-w-sm text-sm leading-relaxed text-ink-mid">
                 {t.form.successKeepSafe} {t.form.successAgentContact}
               </p>
 
@@ -256,7 +256,7 @@ export default function SubmitPage() {
                   value={form.fullName}
                   onChange={(e) => updateField('fullName', e.target.value)}
                   placeholder={t.form.fullNamePlaceholder}
-                  className="mt-2 w-full rounded-lg border border-gray-300 px-4 py-3 text-sm focus:border-ama-green focus:outline-none focus:ring-2 focus:ring-ama-green/30"
+                  className="mt-2 w-full rounded-lg border border-parchment-border px-4 py-3 text-sm focus:border-ama-green focus:outline-none focus:ring-2 focus:ring-ama-green/30"
                 />
                 {errors.fullName && <p className="mt-1 text-xs font-medium text-red-600">{errors.fullName}</p>}
               </div>
@@ -271,7 +271,7 @@ export default function SubmitPage() {
                   value={form.contactNumber}
                   onChange={(e) => updateField('contactNumber', e.target.value)}
                   placeholder={t.form.contactNumberPlaceholder}
-                  className="mt-2 w-full rounded-lg border border-gray-300 px-4 py-3 text-sm focus:border-ama-green focus:outline-none focus:ring-2 focus:ring-ama-green/30"
+                  className="mt-2 w-full rounded-lg border border-parchment-border px-4 py-3 text-sm focus:border-ama-green focus:outline-none focus:ring-2 focus:ring-ama-green/30"
                 />
                 {errors.contactNumber && (
                   <p className="mt-1 text-xs font-medium text-red-600">{errors.contactNumber}</p>
@@ -288,7 +288,7 @@ export default function SubmitPage() {
                   value={form.email}
                   onChange={(e) => updateField('email', e.target.value)}
                   placeholder={t.form.emailPlaceholder}
-                  className="mt-2 w-full rounded-lg border border-gray-300 px-4 py-3 text-sm focus:border-ama-green focus:outline-none focus:ring-2 focus:ring-ama-green/30"
+                  className="mt-2 w-full rounded-lg border border-parchment-border px-4 py-3 text-sm focus:border-ama-green focus:outline-none focus:ring-2 focus:ring-ama-green/30"
                 />
               </div>
 
@@ -302,7 +302,7 @@ export default function SubmitPage() {
                   value={form.location}
                   onChange={(e) => updateField('location', e.target.value)}
                   placeholder={t.form.locationPlaceholder}
-                  className="mt-2 w-full rounded-lg border border-gray-300 px-4 py-3 text-sm focus:border-ama-green focus:outline-none focus:ring-2 focus:ring-ama-green/30"
+                  className="mt-2 w-full rounded-lg border border-parchment-border px-4 py-3 text-sm focus:border-ama-green focus:outline-none focus:ring-2 focus:ring-ama-green/30"
                 />
               </div>
 
@@ -314,7 +314,7 @@ export default function SubmitPage() {
                   id="mode"
                   value={form.mode}
                   onChange={(e) => updateField('mode', e.target.value)}
-                  className="mt-2 w-full rounded-lg border border-gray-300 px-4 py-3 text-sm focus:border-ama-green focus:outline-none focus:ring-2 focus:ring-ama-green/30"
+                  className="mt-2 w-full rounded-lg border border-parchment-border px-4 py-3 text-sm focus:border-ama-green focus:outline-none focus:ring-2 focus:ring-ama-green/30"
                 >
                   {MODE_OPTIONS.map((option) => (
                     <option key={option.value} value={option.value}>
@@ -332,7 +332,7 @@ export default function SubmitPage() {
                   id="gender"
                   value={form.gender}
                   onChange={(e) => updateField('gender', e.target.value)}
-                  className="mt-2 w-full rounded-lg border border-gray-300 px-4 py-3 text-sm focus:border-ama-green focus:outline-none focus:ring-2 focus:ring-ama-green/30"
+                  className="mt-2 w-full rounded-lg border border-parchment-border px-4 py-3 text-sm focus:border-ama-green focus:outline-none focus:ring-2 focus:ring-ama-green/30"
                 >
                   {GENDER_OPTIONS.map((option) => (
                     <option key={option.value} value={option.value}>
@@ -346,7 +346,7 @@ export default function SubmitPage() {
                     value={genderOther}
                     onChange={(e) => setGenderOther(e.target.value)}
                     placeholder={t.form.genderOtherPlaceholder}
-                    className="mt-2 w-full rounded-lg border border-gray-300 px-4 py-3 text-sm focus:border-ama-green focus:outline-none focus:ring-2 focus:ring-ama-green/30"
+                    className="mt-2 w-full rounded-lg border border-parchment-border px-4 py-3 text-sm focus:border-ama-green focus:outline-none focus:ring-2 focus:ring-ama-green/30"
                   />
                 )}
               </div>
@@ -360,7 +360,7 @@ export default function SubmitPage() {
                   type="text"
                   value={form.nationality}
                   onChange={(e) => updateField('nationality', e.target.value)}
-                  className="mt-2 w-full rounded-lg border border-gray-300 px-4 py-3 text-sm focus:border-ama-green focus:outline-none focus:ring-2 focus:ring-ama-green/30"
+                  className="mt-2 w-full rounded-lg border border-parchment-border px-4 py-3 text-sm focus:border-ama-green focus:outline-none focus:ring-2 focus:ring-ama-green/30"
                 />
               </div>
 
@@ -373,7 +373,7 @@ export default function SubmitPage() {
                       className={`flex cursor-pointer items-start gap-3 rounded-lg border p-3 text-sm transition-colors ${
                         form.migrationStatus === option.value
                           ? 'border-ama-green bg-ama-green-light'
-                          : 'border-gray-200'
+                          : 'border-parchment-border'
                       }`}
                     >
                       <input
@@ -385,9 +385,9 @@ export default function SubmitPage() {
                         className="mt-1 accent-ama-green"
                       />
                       <span>
-                        <span className="font-semibold text-gray-800">{t.form[option.labelKey]}</span>
+                        <span className="font-semibold text-ink">{t.form[option.labelKey]}</span>
                         {option.value !== 'Other' && (
-                          <span className="block text-xs text-gray-500">{t.form[option.descKey]}</span>
+                          <span className="block text-xs text-ink-light">{t.form[option.descKey]}</span>
                         )}
                       </span>
                     </label>
@@ -399,7 +399,7 @@ export default function SubmitPage() {
                     value={migrationStatusOther}
                     onChange={(e) => setMigrationStatusOther(e.target.value)}
                     placeholder={t.form.migrationStatusOtherPlaceholder}
-                    className="mt-2 w-full rounded-lg border border-gray-300 px-4 py-3 text-sm focus:border-ama-green focus:outline-none focus:ring-2 focus:ring-ama-green/30"
+                    className="mt-2 w-full rounded-lg border border-parchment-border px-4 py-3 text-sm focus:border-ama-green focus:outline-none focus:ring-2 focus:ring-ama-green/30"
                   />
                 )}
               </div>
@@ -413,7 +413,7 @@ export default function SubmitPage() {
                       className={`flex cursor-pointer items-center gap-2 rounded-lg border p-3 text-sm transition-colors ${
                         form.supportType.includes(option.value)
                           ? 'border-ama-green bg-ama-green-light'
-                          : 'border-gray-200'
+                          : 'border-parchment-border'
                       }`}
                     >
                       <input
@@ -422,7 +422,7 @@ export default function SubmitPage() {
                         onChange={() => toggleSupport(option.value)}
                         className="accent-ama-green"
                       />
-                      <span className="text-gray-800">{t.form[option.labelKey]}</span>
+                      <span className="text-ink">{t.form[option.labelKey]}</span>
                     </label>
                   ))}
                 </div>
@@ -432,7 +432,7 @@ export default function SubmitPage() {
                     value={supportTypeOther}
                     onChange={(e) => setSupportTypeOther(e.target.value)}
                     placeholder={t.form.supportOtherPlaceholder}
-                    className="mt-2 w-full rounded-lg border border-gray-300 px-4 py-3 text-sm focus:border-ama-green focus:outline-none focus:ring-2 focus:ring-ama-green/30"
+                    className="mt-2 w-full rounded-lg border border-parchment-border px-4 py-3 text-sm focus:border-ama-green focus:outline-none focus:ring-2 focus:ring-ama-green/30"
                   />
                 )}
               </div>
@@ -447,7 +447,7 @@ export default function SubmitPage() {
                   value={form.situation}
                   onChange={(e) => updateField('situation', e.target.value)}
                   placeholder={t.form.situationPlaceholder}
-                  className="mt-2 w-full resize-none rounded-lg border border-gray-300 p-3 text-sm focus:border-ama-green focus:outline-none focus:ring-2 focus:ring-ama-green/30"
+                  className="mt-2 w-full resize-none rounded-lg border border-parchment-border p-3 text-sm focus:border-ama-green focus:outline-none focus:ring-2 focus:ring-ama-green/30"
                 />
                 {errors.situation && <p className="mt-1 text-xs font-medium text-red-600">{errors.situation}</p>}
               </div>
@@ -461,7 +461,7 @@ export default function SubmitPage() {
                   rows={3}
                   value={form.otherInfo}
                   onChange={(e) => updateField('otherInfo', e.target.value)}
-                  className="mt-2 w-full resize-none rounded-lg border border-gray-300 p-3 text-sm focus:border-ama-green focus:outline-none focus:ring-2 focus:ring-ama-green/30"
+                  className="mt-2 w-full resize-none rounded-lg border border-parchment-border p-3 text-sm focus:border-ama-green focus:outline-none focus:ring-2 focus:ring-ama-green/30"
                 />
               </div>
 
@@ -473,7 +473,7 @@ export default function SubmitPage() {
                     onChange={(e) => updateField('consent', e.target.checked)}
                     className="mt-1 accent-ama-green"
                   />
-                  <span className="text-gray-700">
+                  <span className="text-ink-mid">
                     {t.form.consentLabel} <span className="text-red-600">*</span>
                   </span>
                 </label>
@@ -531,12 +531,12 @@ export default function SubmitPage() {
               </div>
             </div>
 
-            <p className="mx-auto mt-5 max-w-sm text-sm leading-relaxed text-gray-600">
+            <p className="mx-auto mt-5 max-w-sm text-sm leading-relaxed text-ink-mid">
               {t.submit.qrInstruction}
             </p>
 
-            <div className="mt-8 border-t border-gray-100 pt-6">
-              <p className="text-sm font-medium text-gray-700">{t.submit.orDirect}</p>
+            <div className="mt-8 border-t border-parchment-border pt-6">
+              <p className="text-sm font-medium text-ink-mid">{t.submit.orDirect}</p>
               <a
                 href={FORM_URL}
                 target="_blank"
@@ -548,7 +548,7 @@ export default function SubmitPage() {
             </div>
           </div>
 
-          <div className="mt-6 rounded-xl border-l-4 border-ama-green bg-ama-green-light p-4 text-sm leading-relaxed text-gray-700">
+          <div className="mt-6 rounded-xl border-l-4 border-ama-green bg-ama-green-light p-4 text-sm leading-relaxed text-ink-mid">
             {t.submit.nextStepsBody}
           </div>
         </div>
@@ -557,7 +557,7 @@ export default function SubmitPage() {
       {/* Tab 3 — Direct link */}
       {activeTab === 'link' && (
         <div className="mt-8 rounded-2xl bg-white p-6 text-center shadow-md sm:p-8">
-          <p className="text-sm leading-relaxed text-gray-600">{t.form.directLinkExplain}</p>
+          <p className="text-sm leading-relaxed text-ink-mid">{t.form.directLinkExplain}</p>
           <a
             href={FORM_URL}
             target="_blank"

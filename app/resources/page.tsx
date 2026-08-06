@@ -169,9 +169,9 @@ export default function ResourcesPage() {
   return (
     <div className="mx-auto max-w-5xl px-4 py-12 sm:px-6 lg:px-8">
       <h1 className="text-3xl font-bold text-ama-green sm:text-4xl">{t.resources.title}</h1>
-      <p className="mt-4 text-base leading-relaxed text-gray-700">{t.resources.intro}</p>
+      <p className="mt-4 text-base leading-relaxed text-ink-mid">{t.resources.intro}</p>
 
-      <div className="mt-8 flex flex-wrap gap-2 border-b border-gray-200">
+      <div className="mt-8 flex flex-wrap gap-2 border-b border-parchment-border">
         {TABS.map((tab) => (
           <button
             key={tab}
@@ -180,7 +180,7 @@ export default function ResourcesPage() {
             className={`rounded-t-lg px-4 py-2 text-sm font-bold transition-colors ${
               activeTab === tab
                 ? 'border-b-2 border-ama-green text-ama-green'
-                : 'text-gray-500 hover:text-ama-green'
+                : 'text-ink-light hover:text-ama-green'
             }`}
           >
             {tabLabels[tab]}
@@ -193,7 +193,7 @@ export default function ResourcesPage() {
           <button
             type="button"
             onClick={handlePrint}
-            className="rounded-md border border-gray-300 px-3 py-1 text-xs font-semibold text-gray-700"
+            className="rounded-md border border-parchment-border px-3 py-1 text-xs font-semibold text-ink-mid"
           >
             {t.resources.printButton}
           </button>
@@ -203,15 +203,15 @@ export default function ResourcesPage() {
           <div className="mt-4 space-y-6">
             <section>
               <h2 className="text-xl font-bold text-ama-green">{t.resources.gbvWhatTitle}</h2>
-              <p className="mt-2 text-sm leading-relaxed text-gray-700">{t.resources.gbvWhatBody}</p>
+              <p className="mt-2 text-sm leading-relaxed text-ink-mid">{t.resources.gbvWhatBody}</p>
             </section>
             <section>
               <h2 className="text-xl font-bold text-ama-green">{t.resources.gbvTypesTitle}</h2>
-              <p className="mt-2 text-sm leading-relaxed text-gray-700">{t.resources.gbvTypesBody}</p>
+              <p className="mt-2 text-sm leading-relaxed text-ink-mid">{t.resources.gbvTypesBody}</p>
             </section>
             <section>
               <h2 className="text-xl font-bold text-ama-green">{t.resources.gbvHelpTitle}</h2>
-              <p className="mt-2 text-sm leading-relaxed text-gray-700">{t.resources.gbvHelpBody}</p>
+              <p className="mt-2 text-sm leading-relaxed text-ink-mid">{t.resources.gbvHelpBody}</p>
             </section>
           </div>
         )}
@@ -220,11 +220,11 @@ export default function ResourcesPage() {
           <div className="mt-4 space-y-6">
             <section>
               <h2 className="text-xl font-bold text-ama-green">{t.resources.rightsTitle}</h2>
-              <p className="mt-2 text-sm leading-relaxed text-gray-700">{t.resources.rightsBody}</p>
+              <p className="mt-2 text-sm leading-relaxed text-ink-mid">{t.resources.rightsBody}</p>
             </section>
             <section>
               <h2 className="text-xl font-bold text-ama-green">{t.resources.rightsDeskTitle}</h2>
-              <p className="mt-2 text-sm leading-relaxed text-gray-700">{t.resources.rightsDeskBody}</p>
+              <p className="mt-2 text-sm leading-relaxed text-ink-mid">{t.resources.rightsDeskBody}</p>
             </section>
           </div>
         )}
@@ -232,9 +232,9 @@ export default function ResourcesPage() {
         {activeTab === 'referral' && (
           <div className="mt-4 grid grid-cols-1 gap-5 sm:grid-cols-2">
             {REFERRAL_ORGS.map((org) => (
-              <div key={org.name} className="rounded-xl border border-gray-200 p-5">
+              <div key={org.name} className="rounded-xl border border-parchment-border p-5">
                 <h3 className="text-base font-bold text-ama-green">{org.name}</h3>
-                <p className="mt-2 text-sm leading-relaxed text-gray-700">{org.what[language]}</p>
+                <p className="mt-2 text-sm leading-relaxed text-ink-mid">{org.what[language]}</p>
                 <p className="mt-2 text-xs font-semibold uppercase tracking-wide text-ama-gold">
                   {org.cases[language]}
                 </p>
@@ -248,8 +248,8 @@ export default function ResourcesPage() {
             <h2 className="text-xl font-bold text-ama-green">{t.resources.faqTitle}</h2>
             {FAQ_ITEMS[language].map((item) => (
               <div key={item.q} className="rounded-xl bg-ama-green-light p-4">
-                <p className="text-sm font-bold text-gray-900">{item.q}</p>
-                <p className="mt-1 text-sm leading-relaxed text-gray-700">{item.a}</p>
+                <p className="text-sm font-bold text-ink">{item.q}</p>
+                <p className="mt-1 text-sm leading-relaxed text-ink-mid">{item.a}</p>
               </div>
             ))}
           </div>

@@ -1,5 +1,5 @@
 'use client';
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { useTranslation } from '@/lib/translations';
@@ -17,6 +17,7 @@ export default function Navbar() {
   const pathname = usePathname();
   const isAgentSection = pathname?.startsWith('/agents');
   const [menuOpen, setMenuOpen] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
 
   const publicNav = [
     { href: '/', label: t.nav.home },
@@ -28,6 +29,12 @@ export default function Navbar() {
 
   const navItems = isAgentSection ? AGENT_NAV : publicNav;
 
+  useEffect(() => {
+    const handleScroll = () => setScrolled(window.scrollY > 10);
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
   return (
     <header
       style={{
@@ -35,70 +42,86 @@ export default function Navbar() {
         position: 'sticky',
         top: 0,
         zIndex: 1000,
-        boxShadow: '0 2px 8px rgba(0,0,0,0.15)',
+        boxShadow: scrolled ? '0 4px 20px rgba(13,40,24,0.2)' : '0 1px 0 rgba(255,255,255,0.1)',
+        transition: 'box-shadow 0.3s ease',
       }}
     >
       <nav
         style={{
-          padding: '0 24px',
+          padding: '0 32px',
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'space-between',
-          height: 64,
+          height: 68,
         }}
       >
         {/* Logo */}
-        <Link href={isAgentSection ? '/agents' : '/'} style={{ textDecoration: 'none', display: 'flex', alignItems: 'center', gap: 10 }}>
-          <div style={{ width: 32, height: 32, background: 'rgba(255,255,255,0.2)', borderRadius: 8, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+        <Link href={isAgentSection ? '/agents' : '/'} style={{ textDecoration: 'none', display: 'flex', alignItems: 'center', gap: 12 }}>
+          <div style={{
+            width: 36,
+            height: 36,
+            background: 'rgba(255,255,255,0.15)',
+            borderRadius: 10,
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            border: '1px solid rgba(255,255,255,0.2)',
+          }}>
             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#ffffff" strokeWidth="2">
               <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" />
               <polyline points="9 22 9 12 15 12 15 22" />
             </svg>
           </div>
           <div>
-            <div style={{ color: '#ffffff', fontWeight: 700, fontSize: 14, lineHeight: 1.2 }}>AMA Migrant Desk</div>
-            {isAgentSection && <div style={{ color: '#a8d5b5', fontSize: 10 }}>Agent Portal</div>}
+            <div style={{ color: '#ffffff', fontWeight: 700, fontSize: 15, letterSpacing: '-0.3px', fontFamily: 'var(--font-body)' }}>
+              AMA Migrant Desk
+            </div>
+            <div style={{ color: 'rgba(255,255,255,0.6)', fontSize: 10, letterSpacing: '0.5px', textTransform: 'uppercase' }}>
+              {isAgentSection ? 'Agent Portal' : 'Accra Metropolitan Assembly'}
+            </div>
           </div>
         </Link>
 
         {/* Desktop nav */}
-        <div className="hidden lg:flex" style={{ alignItems: 'center', gap: 4 }}>
-          {navItems.map((item) => (
-            <Link
-              key={item.href}
-              href={item.href}
-              style={{
-                color: pathname === item.href ? '#ffffff' : '#a8d5b5',
-                textDecoration: 'none',
-                padding: '8px 14px',
-                borderRadius: 8,
-                fontSize: 13,
-                fontWeight: pathname === item.href ? 700 : 500,
-                background: pathname === item.href ? 'rgba(255,255,255,0.15)' : 'transparent',
-                transition: 'all 0.2s',
-              }}
-            >
-              {item.label}
-            </Link>
-          ))}
+        <div className="hidden lg:flex" style={{ alignItems: 'center', gap: 2 }}>
+          {navItems.map((item) => {
+            const active = pathname === item.href;
+            return (
+              <Link
+                key={item.href}
+                href={item.href}
+                style={{
+                  color: active ? '#ffffff' : 'rgba(255,255,255,0.7)',
+                  textDecoration: 'none',
+                  padding: '8px 16px',
+                  borderRadius: 8,
+                  fontSize: 14,
+                  fontWeight: active ? 600 : 400,
+                  background: active ? 'rgba(255,255,255,0.15)' : 'transparent',
+                  letterSpacing: '-0.1px',
+                }}
+              >
+                {item.label}
+              </Link>
+            );
+          })}
 
-          {!isAgentSection && (
-            <div style={{ marginLeft: 4 }}>
-              <LanguageSwitcher language={language} setLanguage={setLanguage} variant="dark" />
-            </div>
-          )}
+          <div style={{ width: 1, height: 24, background: 'rgba(255,255,255,0.2)', margin: '0 8px' }} />
 
-          {/* Switch between public and agent */}
+          {!isAgentSection && <LanguageSwitcher language={language} setLanguage={setLanguage} variant="dark" />}
+
           {isAgentSection ? (
             <Link
               href="/"
               style={{
-                color: '#a8d5b5',
+                color: 'rgba(255,255,255,0.7)',
                 textDecoration: 'none',
-                padding: '8px 14px',
+                padding: '8px 16px',
                 borderRadius: 8,
-                fontSize: 13,
-                border: '1px solid rgba(255,255,255,0.2)',
+                fontSize: 14,
+                display: 'flex',
+                alignItems: 'center',
+                gap: 6,
                 marginLeft: 8,
               }}
             >
@@ -108,18 +131,18 @@ export default function Navbar() {
             <Link
               href="/agents"
               style={{
-                color: '#ffffff',
+                color: '#0d2818',
                 textDecoration: 'none',
-                padding: '8px 14px',
+                padding: '8px 18px',
                 borderRadius: 8,
                 fontSize: 13,
-                background: 'rgba(255,255,255,0.15)',
-                border: '1px solid rgba(255,255,255,0.3)',
-                marginLeft: 8,
                 fontWeight: 600,
+                background: '#ffffff',
+                letterSpacing: '-0.1px',
+                marginLeft: 8,
               }}
             >
-              Agent Login →
+              Staff Login
             </Link>
           )}
         </div>
@@ -145,33 +168,36 @@ export default function Navbar() {
 
       {/* Mobile menu panel */}
       {menuOpen && (
-        <div className="lg:hidden" style={{ borderTop: '1px solid rgba(255,255,255,0.2)', background: '#145530', padding: '12px 16px' }}>
+        <div className="lg:hidden" style={{ borderTop: '1px solid rgba(255,255,255,0.15)', background: '#0d2818', padding: '12px 16px' }}>
           <div style={{ display: 'flex', flexDirection: 'column', gap: 4 }}>
-            {navItems.map((item) => (
-              <Link
-                key={item.href}
-                href={item.href}
-                onClick={() => setMenuOpen(false)}
-                style={{
-                  color: pathname === item.href ? '#ffffff' : '#a8d5b5',
-                  textDecoration: 'none',
-                  padding: '10px 14px',
-                  borderRadius: 8,
-                  fontSize: 14,
-                  fontWeight: pathname === item.href ? 700 : 500,
-                  background: pathname === item.href ? 'rgba(255,255,255,0.15)' : 'transparent',
-                }}
-              >
-                {item.label}
-              </Link>
-            ))}
+            {navItems.map((item) => {
+              const active = pathname === item.href;
+              return (
+                <Link
+                  key={item.href}
+                  href={item.href}
+                  onClick={() => setMenuOpen(false)}
+                  style={{
+                    color: active ? '#ffffff' : 'rgba(255,255,255,0.7)',
+                    textDecoration: 'none',
+                    padding: '10px 14px',
+                    borderRadius: 8,
+                    fontSize: 14,
+                    fontWeight: active ? 600 : 400,
+                    background: active ? 'rgba(255,255,255,0.15)' : 'transparent',
+                  }}
+                >
+                  {item.label}
+                </Link>
+              );
+            })}
 
             {isAgentSection ? (
               <Link
                 href="/"
                 onClick={() => setMenuOpen(false)}
                 style={{
-                  color: '#a8d5b5',
+                  color: 'rgba(255,255,255,0.7)',
                   textDecoration: 'none',
                   padding: '10px 14px',
                   borderRadius: 8,
@@ -187,18 +213,17 @@ export default function Navbar() {
                 href="/agents"
                 onClick={() => setMenuOpen(false)}
                 style={{
-                  color: '#ffffff',
+                  color: '#0d2818',
                   textDecoration: 'none',
                   padding: '10px 14px',
                   borderRadius: 8,
                   fontSize: 14,
-                  background: 'rgba(255,255,255,0.15)',
-                  border: '1px solid rgba(255,255,255,0.3)',
+                  background: '#ffffff',
                   marginTop: 4,
                   fontWeight: 600,
                 }}
               >
-                Agent Login →
+                Staff Login
               </Link>
             )}
           </div>

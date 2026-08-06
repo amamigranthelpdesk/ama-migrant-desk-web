@@ -158,13 +158,13 @@ function VoicePanel({
   }
 
   return (
-    <div className="rounded-2xl border border-gray-200 p-5">
+    <div className="rounded-2xl border border-parchment-border p-5">
       <div className="flex items-center justify-between">
         <h3 className="text-lg font-bold text-ama-green">{label}</h3>
         <select
           value={speakerLangCode}
           onChange={(e) => onLangChange(e.target.value)}
-          className="rounded-md border border-gray-300 px-2 py-1 text-sm"
+          className="rounded-md border border-parchment-border px-2 py-1 text-sm"
         >
           {langOptions.map((lang) => (
             <option key={lang.code} value={lang.code}>
@@ -193,12 +193,12 @@ function VoicePanel({
           </button>
           {listening && <p className="mt-2 text-xs font-medium text-ama-green">{listeningText}</p>}
 
-          <div className="mt-4 min-h-[3rem] rounded-lg bg-gray-50 p-3 text-sm text-gray-800">
-            {transcript || <span className="text-gray-400">—</span>}
+          <div className="mt-4 min-h-[3rem] rounded-lg bg-parchment p-3 text-sm text-ink">
+            {transcript || <span className="text-ink-light">—</span>}
           </div>
 
           <div className="mt-3 flex items-center justify-between rounded-lg bg-ama-green-light p-3">
-            <p className="text-sm text-gray-800">{translation || <span className="text-gray-400">—</span>}</p>
+            <p className="text-sm text-ink">{translation || <span className="text-ink-light">—</span>}</p>
             <button
               type="button"
               onClick={() => speak(translation, listenerLangCode)}
@@ -264,10 +264,10 @@ export default function TranslatePage() {
   return (
     <div className="mx-auto max-w-5xl px-4 py-12 sm:px-6 lg:px-8">
       <h1 className="text-3xl font-bold text-ama-green sm:text-4xl">{t.translatePage.title}</h1>
-      <p className="mt-4 text-base leading-relaxed text-gray-700">{t.translatePage.intro}</p>
+      <p className="mt-4 text-base leading-relaxed text-ink-mid">{t.translatePage.intro}</p>
 
       {/* Text translation */}
-      <div className="mt-8 rounded-2xl border border-gray-200 p-6">
+      <div className="mt-8 rounded-2xl border border-parchment-border p-6">
         <div className="grid grid-cols-1 gap-6 lg:grid-cols-2">
           <div>
             <div className="flex items-center justify-between">
@@ -275,7 +275,7 @@ export default function TranslatePage() {
               <select
                 value={sourceLang}
                 onChange={(e) => setSourceLang(e.target.value)}
-                className="rounded-md border border-gray-300 px-2 py-1 text-sm"
+                className="rounded-md border border-parchment-border px-2 py-1 text-sm"
               >
                 <option value="auto">{t.translatePage.autoDetect}</option>
                 {LANGUAGES.map((lang) => (
@@ -286,14 +286,14 @@ export default function TranslatePage() {
               </select>
             </div>
             {sourceLang === 'auto' && (
-              <p className="mt-1 text-xs text-gray-400">{t.translatePage.autoDetectInfo}</p>
+              <p className="mt-1 text-xs text-ink-light">{t.translatePage.autoDetectInfo}</p>
             )}
             <textarea
               value={inputText}
               onChange={(e) => setInputText(e.target.value)}
               placeholder={t.translatePage.inputPlaceholder}
               rows={8}
-              className="mt-2 w-full resize-none rounded-lg border border-gray-300 p-3 text-sm focus:border-ama-green focus:outline-none"
+              className="mt-2 w-full resize-none rounded-lg border border-parchment-border p-3 text-sm focus:border-ama-green focus:outline-none"
             />
           </div>
 
@@ -303,7 +303,7 @@ export default function TranslatePage() {
               <select
                 value={targetLang}
                 onChange={(e) => setTargetLang(e.target.value)}
-                className="rounded-md border border-gray-300 px-2 py-1 text-sm"
+                className="rounded-md border border-parchment-border px-2 py-1 text-sm"
               >
                 {LANGUAGES.map((lang) => (
                   <option key={lang.code} value={lang.code}>
@@ -317,13 +317,13 @@ export default function TranslatePage() {
               readOnly
               placeholder={t.translatePage.outputPlaceholder}
               rows={8}
-              className="mt-2 w-full resize-none rounded-lg border border-gray-200 bg-gray-50 p-3 text-sm"
+              className="mt-2 w-full resize-none rounded-lg border border-parchment-border bg-parchment p-3 text-sm"
             />
             <button
               type="button"
               onClick={handleCopy}
               disabled={!outputText}
-              className="mt-2 rounded-md border border-gray-300 px-3 py-1 text-xs font-semibold text-gray-700 disabled:opacity-40"
+              className="mt-2 rounded-md border border-parchment-border px-3 py-1 text-xs font-semibold text-ink-mid disabled:opacity-40"
             >
               {copied ? t.translatePage.copied : t.translatePage.copyButton}
             </button>
@@ -343,7 +343,7 @@ export default function TranslatePage() {
             type="button"
             onClick={handleSwap}
             disabled={sourceLang === 'auto'}
-            className="rounded-lg border border-gray-300 px-4 py-2 text-sm font-semibold text-gray-700 disabled:opacity-40"
+            className="rounded-lg border border-parchment-border px-4 py-2 text-sm font-semibold text-ink-mid disabled:opacity-40"
           >
             {t.translatePage.swapButton}
           </button>
@@ -353,7 +353,7 @@ export default function TranslatePage() {
       {/* Voice translation */}
       <div className="mt-12">
         <h2 className="text-2xl font-bold text-ama-green">{t.translatePage.voiceTitle}</h2>
-        <p className="mt-2 text-sm leading-relaxed text-gray-600">{t.translatePage.voiceExplain}</p>
+        <p className="mt-2 text-sm leading-relaxed text-ink-mid">{t.translatePage.voiceExplain}</p>
 
         <div className="mt-6 grid grid-cols-1 gap-6 md:grid-cols-2">
           <VoicePanel

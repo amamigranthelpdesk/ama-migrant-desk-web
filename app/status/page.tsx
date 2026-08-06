@@ -56,7 +56,7 @@ export default function StatusPage() {
   return (
     <div className="mx-auto max-w-2xl px-4 py-12 sm:px-6 lg:px-8">
       <h1 className="text-3xl font-bold text-ama-green sm:text-4xl">{t.status.title}</h1>
-      <p className="mt-4 text-base leading-relaxed text-gray-700">{t.status.intro}</p>
+      <p className="mt-4 text-base leading-relaxed text-ink-mid">{t.status.intro}</p>
 
       <form onSubmit={handleSubmit} className="mt-8 space-y-5 rounded-2xl bg-ama-green-light p-6">
         <div>
@@ -70,7 +70,7 @@ export default function StatusPage() {
             onChange={(e) => setCaseId(e.target.value)}
             placeholder={t.status.caseIdPlaceholder}
             required
-            className="mt-2 w-full rounded-lg border border-gray-300 px-4 py-3 text-sm focus:border-ama-green focus:outline-none"
+            className="mt-2 w-full rounded-lg border border-parchment-border px-4 py-3 text-sm focus:border-ama-green focus:outline-none"
           />
         </div>
 
@@ -84,27 +84,27 @@ export default function StatusPage() {
       </form>
 
       {state === 'found' && result && (
-        <div className="mt-8 rounded-2xl border border-gray-200 p-6 shadow-sm">
+        <div className="mt-8 rounded-2xl border border-parchment-border p-6 shadow-sm">
           <div className="flex items-center justify-between">
             <div>
-              <p className="text-xs font-bold uppercase tracking-wide text-gray-500">{t.status.resultCaseId}</p>
-              <p className="mt-1 text-lg font-bold text-gray-900">{result.caseId}</p>
+              <p className="text-xs font-bold uppercase tracking-wide text-ink-light">{t.status.resultCaseId}</p>
+              <p className="mt-1 text-lg font-bold text-ink">{result.caseId}</p>
             </div>
             <StatusBadge status={result.status} />
           </div>
 
-          <p className="mt-4 text-sm leading-relaxed text-gray-700">{statusMeaning}</p>
+          <p className="mt-4 text-sm leading-relaxed text-ink-mid">{statusMeaning}</p>
 
           {result.referredTo && (
             <div className="mt-4">
-              <p className="text-xs font-bold uppercase tracking-wide text-gray-500">{t.status.resultReferral}</p>
-              <p className="mt-1 text-sm font-semibold text-gray-800">{result.referredTo}</p>
+              <p className="text-xs font-bold uppercase tracking-wide text-ink-light">{t.status.resultReferral}</p>
+              <p className="mt-1 text-sm font-semibold text-ink">{result.referredTo}</p>
             </div>
           )}
 
           <div className="mt-4 rounded-lg bg-ama-green-light p-4">
             <p className="text-xs font-bold uppercase tracking-wide text-ama-green">{t.status.resultNextSteps}</p>
-            <p className="mt-1 text-sm text-gray-700">{statusMeaning}</p>
+            <p className="mt-1 text-sm text-ink-mid">{statusMeaning}</p>
           </div>
         </div>
       )}

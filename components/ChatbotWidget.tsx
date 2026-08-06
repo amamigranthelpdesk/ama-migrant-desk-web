@@ -165,7 +165,7 @@ export const ChatbotWidget: React.FC = () => {
   };
 
   return (
-    <div style={{ position: 'fixed', bottom: 24, right: 24, zIndex: 2000, fontFamily: 'Arial, sans-serif' }}>
+    <div style={{ position: 'fixed', bottom: 24, right: 24, zIndex: 2000, fontFamily: 'var(--font-body)' }}>
       {open && (
         <div style={{
           width: 380,
@@ -176,12 +176,12 @@ export const ChatbotWidget: React.FC = () => {
           display: 'flex',
           flexDirection: 'column',
           marginBottom: 12,
-          border: '1px solid #e0e8e3',
+          border: '1px solid #e8e0d0',
           overflow: 'hidden',
         }}>
           {/* Header */}
           <div style={{
-            background: 'linear-gradient(135deg, #1a6b3a 0%, #145530 100%)',
+            background: 'linear-gradient(135deg, #0d2818, #1a6b3a)',
             padding: '14px 16px',
             display: 'flex',
             alignItems: 'center',
@@ -247,7 +247,7 @@ export const ChatbotWidget: React.FC = () => {
                   fontSize: 13,
                   lineHeight: 1.6,
                   boxShadow: '0 1px 3px rgba(0,0,0,0.08)',
-                  border: msg.role === 'assistant' ? '1px solid #e0e8e3' : 'none',
+                  border: msg.role === 'assistant' ? '1px solid #e8e0d0' : 'none',
                   whiteSpace: 'pre-wrap',
                 }}>
                   {msg.content}
@@ -264,7 +264,7 @@ export const ChatbotWidget: React.FC = () => {
                   padding: '12px 16px',
                   borderRadius: '16px 16px 16px 4px',
                   background: '#ffffff',
-                  border: '1px solid #e0e8e3',
+                  border: '1px solid #e8e0d0',
                   display: 'flex',
                   gap: 4,
                   alignItems: 'center',
@@ -294,7 +294,7 @@ export const ChatbotWidget: React.FC = () => {
                     onClick={() => void sendMessage(qr.value)}
                     style={{
                       background: '#ffffff',
-                      border: '1px solid #e0e8e3',
+                      border: '1px solid #e8e0d0',
                       borderRadius: 10,
                       padding: '8px 14px',
                       cursor: 'pointer',
@@ -303,7 +303,7 @@ export const ChatbotWidget: React.FC = () => {
                       textAlign: 'left',
                       fontWeight: 500,
                       transition: 'all 0.2s',
-                      fontFamily: 'Arial, sans-serif',
+                      fontFamily: 'var(--font-body)',
                     }}
                   >
                     {qr.label}
@@ -316,7 +316,7 @@ export const ChatbotWidget: React.FC = () => {
             {showCallbackForm && !callbackSubmitted && (
               <div style={{
                 background: '#ffffff',
-                border: '1px solid #e0e8e3',
+                border: '1px solid #e8e0d0',
                 borderRadius: 12,
                 padding: 16,
                 marginTop: 8,
@@ -331,14 +331,14 @@ export const ChatbotWidget: React.FC = () => {
                   onChange={e => setCallbackName(e.target.value)}
                   style={{
                     width: '100%',
-                    border: '1px solid #e0e8e3',
+                    border: '1px solid #e8e0d0',
                     borderRadius: 8,
                     padding: '8px 12px',
                     fontSize: 13,
                     marginBottom: 8,
                     outline: 'none',
                     boxSizing: 'border-box',
-                    fontFamily: 'Arial, sans-serif',
+                    fontFamily: 'var(--font-body)',
                   }}
                 />
                 <input
@@ -348,14 +348,14 @@ export const ChatbotWidget: React.FC = () => {
                   onChange={e => setCallbackContact(e.target.value)}
                   style={{
                     width: '100%',
-                    border: '1px solid #e0e8e3',
+                    border: '1px solid #e8e0d0',
                     borderRadius: 8,
                     padding: '8px 12px',
                     fontSize: 13,
                     marginBottom: 12,
                     outline: 'none',
                     boxSizing: 'border-box',
-                    fontFamily: 'Arial, sans-serif',
+                    fontFamily: 'var(--font-body)',
                   }}
                 />
                 <div style={{ display: 'flex', gap: 8 }}>
@@ -364,7 +364,7 @@ export const ChatbotWidget: React.FC = () => {
                     disabled={!callbackContact}
                     style={{
                       flex: 1,
-                      background: callbackContact ? '#1a6b3a' : '#e0e8e3',
+                      background: callbackContact ? '#1a6b3a' : '#e8e0d0',
                       color: callbackContact ? '#ffffff' : '#9ca3af',
                       border: 'none',
                       borderRadius: 8,
@@ -372,7 +372,7 @@ export const ChatbotWidget: React.FC = () => {
                       cursor: callbackContact ? 'pointer' : 'not-allowed',
                       fontSize: 13,
                       fontWeight: 600,
-                      fontFamily: 'Arial, sans-serif',
+                      fontFamily: 'var(--font-body)',
                     }}
                   >
                     Submit Request
@@ -382,12 +382,12 @@ export const ChatbotWidget: React.FC = () => {
                     style={{
                       background: '#f4f8f5',
                       color: '#4a6b55',
-                      border: '1px solid #e0e8e3',
+                      border: '1px solid #e8e0d0',
                       borderRadius: 8,
                       padding: '10px',
                       cursor: 'pointer',
                       fontSize: 13,
-                      fontFamily: 'Arial, sans-serif',
+                      fontFamily: 'var(--font-body)',
                     }}
                   >
                     Cancel
@@ -402,7 +402,7 @@ export const ChatbotWidget: React.FC = () => {
           {/* Input */}
           <div style={{
             padding: '12px 16px',
-            borderTop: '1px solid #e0e8e3',
+            borderTop: '1px solid #e8e0d0',
             background: '#ffffff',
             display: 'flex',
             gap: 8,
@@ -417,11 +417,11 @@ export const ChatbotWidget: React.FC = () => {
               rows={1}
               style={{
                 flex: 1,
-                border: '1px solid #e0e8e3',
+                border: '1px solid #e8e0d0',
                 borderRadius: 10,
                 padding: '10px 14px',
                 fontSize: 13,
-                fontFamily: 'Arial, sans-serif',
+                fontFamily: 'var(--font-body)',
                 resize: 'none',
                 outline: 'none',
                 color: '#0d1f14',
@@ -433,7 +433,7 @@ export const ChatbotWidget: React.FC = () => {
               onClick={() => void sendMessage()}
               disabled={!input.trim() || loading}
               style={{
-                background: input.trim() && !loading ? '#1a6b3a' : '#e0e8e3',
+                background: input.trim() && !loading ? '#1a6b3a' : '#e8e0d0',
                 border: 'none',
                 borderRadius: 10,
                 width: 40,
