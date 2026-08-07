@@ -2,6 +2,7 @@
 import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
+import { useTheme } from '@/lib/theme';
 import { useTranslation } from '@/lib/translations';
 import LanguageSwitcher from './LanguageSwitcher';
 
@@ -16,8 +17,9 @@ export default function Navbar() {
   const { t, language, setLanguage } = useTranslation();
   const pathname = usePathname();
   const isAgentSection = pathname?.startsWith('/agents');
-  const [menuOpen, setMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  const [menuOpen, setMenuOpen] = useState(false);
+  const { theme, toggleTheme } = useTheme();
 
   const publicNav = [
     { href: '/', label: t.nav.home },
@@ -35,6 +37,45 @@ export default function Navbar() {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
+  const themeToggleButton = (
+    <button
+      onClick={toggleTheme}
+      style={{
+        background: 'rgba(255,255,255,0.1)',
+        border: '1px solid rgba(255,255,255,0.2)',
+        borderRadius: 8,
+        width: 36,
+        height: 36,
+        cursor: 'pointer',
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        color: '#ffffff',
+        transition: 'all 0.2s',
+      }}
+      title={theme === 'light' ? 'Switch to dark mode' : 'Switch to light mode'}
+      aria-label={theme === 'light' ? 'Switch to dark mode' : 'Switch to light mode'}
+    >
+      {theme === 'light' ? (
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+          <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" />
+        </svg>
+      ) : (
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+          <circle cx="12" cy="12" r="5" />
+          <line x1="12" y1="1" x2="12" y2="3" />
+          <line x1="12" y1="21" x2="12" y2="23" />
+          <line x1="4.22" y1="4.22" x2="5.64" y2="5.64" />
+          <line x1="18.36" y1="18.36" x2="19.78" y2="19.78" />
+          <line x1="1" y1="12" x2="3" y2="12" />
+          <line x1="21" y1="12" x2="23" y2="12" />
+          <line x1="4.22" y1="19.78" x2="5.64" y2="18.36" />
+          <line x1="18.36" y1="5.64" x2="19.78" y2="4.22" />
+        </svg>
+      )}
+    </button>
+  );
+
   return (
     <header
       style={{
@@ -42,7 +83,7 @@ export default function Navbar() {
         position: 'sticky',
         top: 0,
         zIndex: 1000,
-        boxShadow: scrolled ? '0 4px 20px rgba(13,40,24,0.2)' : '0 1px 0 rgba(255,255,255,0.1)',
+        boxShadow: scrolled ? '0 4px 20px rgba(0,0,0,0.2)' : 'none',
         transition: 'box-shadow 0.3s ease',
       }}
     >
@@ -57,23 +98,18 @@ export default function Navbar() {
       >
         {/* Logo */}
         <Link href={isAgentSection ? '/agents' : '/'} style={{ textDecoration: 'none', display: 'flex', alignItems: 'center', gap: 12 }}>
-          <div style={{
-            width: 36,
-            height: 36,
-            background: 'rgba(255,255,255,0.15)',
-            borderRadius: 10,
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-            border: '1px solid rgba(255,255,255,0.2)',
-          }}>
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#ffffff" strokeWidth="2">
-              <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" />
-              <polyline points="9 22 9 12 15 12 15 22" />
-            </svg>
+          <div style={{ width: 40, height: 40, borderRadius: 10, overflow: 'hidden', background: 'rgba(255,255,255,0.15)', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
+            <img
+              src="/ama-logo.png"
+              alt="AMA"
+              style={{ width: 36, height: 36, objectFit: 'contain' }}
+              onError={(e) => {
+                (e.target as HTMLImageElement).style.display = 'none';
+              }}
+            />
           </div>
           <div>
-            <div style={{ color: '#ffffff', fontWeight: 700, fontSize: 15, letterSpacing: '-0.3px', fontFamily: 'var(--font-body)' }}>
+            <div style={{ color: '#ffffff', fontWeight: 700, fontSize: 15, letterSpacing: '-0.3px' }}>
               AMA Migrant Desk
             </div>
             <div style={{ color: 'rgba(255,255,255,0.6)', fontSize: 10, letterSpacing: '0.5px', textTransform: 'uppercase' }}>
@@ -91,14 +127,13 @@ export default function Navbar() {
                 key={item.href}
                 href={item.href}
                 style={{
-                  color: active ? '#ffffff' : 'rgba(255,255,255,0.7)',
-                  textDecoration: 'none',
-                  padding: '8px 16px',
+                  color: active ? '#ffffff' : 'rgba(255,255,255,0.75)',
+                  padding: '8px 14px',
                   borderRadius: 8,
                   fontSize: 14,
                   fontWeight: active ? 600 : 400,
                   background: active ? 'rgba(255,255,255,0.15)' : 'transparent',
-                  letterSpacing: '-0.1px',
+                  transition: 'all 0.2s',
                 }}
               >
                 {item.label}
@@ -110,21 +145,10 @@ export default function Navbar() {
 
           {!isAgentSection && <LanguageSwitcher language={language} setLanguage={setLanguage} variant="dark" />}
 
+          <div style={{ marginLeft: 8, marginRight: 8 }}>{themeToggleButton}</div>
+
           {isAgentSection ? (
-            <Link
-              href="/"
-              style={{
-                color: 'rgba(255,255,255,0.7)',
-                textDecoration: 'none',
-                padding: '8px 16px',
-                borderRadius: 8,
-                fontSize: 14,
-                display: 'flex',
-                alignItems: 'center',
-                gap: 6,
-                marginLeft: 8,
-              }}
-            >
+            <Link href="/" style={{ color: 'rgba(255,255,255,0.7)', padding: '8px 14px', borderRadius: 8, fontSize: 14, display: 'flex', alignItems: 'center', gap: 6 }}>
               <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                 <path d="M19 12H5M12 19l-7-7 7-7" />
               </svg>
@@ -135,14 +159,12 @@ export default function Navbar() {
               href="/agents"
               style={{
                 color: '#0d2818',
-                textDecoration: 'none',
                 padding: '8px 18px',
                 borderRadius: 8,
                 fontSize: 13,
-                fontWeight: 600,
+                fontWeight: 700,
                 background: '#ffffff',
-                letterSpacing: '-0.1px',
-                marginLeft: 8,
+                transition: 'all 0.2s',
               }}
             >
               Staff Login
@@ -237,11 +259,10 @@ export default function Navbar() {
             )}
           </div>
 
-          {!isAgentSection && (
-            <div style={{ marginTop: 12 }}>
-              <LanguageSwitcher language={language} setLanguage={setLanguage} variant="dark" />
-            </div>
-          )}
+          <div style={{ marginTop: 12, display: 'flex', alignItems: 'center', gap: 12 }}>
+            {!isAgentSection && <LanguageSwitcher language={language} setLanguage={setLanguage} variant="dark" />}
+            {themeToggleButton}
+          </div>
         </div>
       )}
     </header>

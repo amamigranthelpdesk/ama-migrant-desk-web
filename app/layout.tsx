@@ -1,9 +1,10 @@
 import type { Metadata } from 'next';
 import { Inter, DM_Serif_Display } from 'next/font/google';
-import './globals.css';
+import { ThemeProvider } from '@/lib/theme';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 import ChatbotWidget from '@/components/ChatbotWidget';
+import './globals.css';
 
 const inter = Inter({
   subsets: ['latin'],
@@ -21,18 +22,19 @@ const dmSerif = DM_Serif_Display({
 
 export const metadata: Metadata = {
   title: 'AMA Migrant Desk',
-  description:
-    'The AMA Migrant Desk connects vulnerable migrants in Accra to protection, legal support, medical assistance, and counselling. Operated by the Accra Metropolitan Assembly in partnership with IOM Ghana, funded by GIZ/GEC.',
+  description: 'Free, confidential migrant assistance in Accra, Ghana',
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en" className={`${inter.variable} ${dmSerif.variable}`}>
-      <body className="flex min-h-screen flex-col font-sans antialiased">
-        <Navbar />
-        <main className="flex-1">{children}</main>
-        <Footer />
-        <ChatbotWidget />
+      <body>
+        <ThemeProvider>
+          <Navbar />
+          {children}
+          <Footer />
+          <ChatbotWidget />
+        </ThemeProvider>
       </body>
     </html>
   );

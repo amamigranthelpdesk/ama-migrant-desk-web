@@ -49,10 +49,10 @@ export default function Footer() {
               Free, confidential migrant assistance services in Accra, Ghana. Operated by AMA in partnership with IOM Ghana.
             </p>
             {/* Logos */}
-            <div style={{ display: 'flex', gap: 16, marginTop: 24, alignItems: 'center' }}>
-              <img src="/ama-logo.png" alt="AMA" style={{ height: 28, width: 'auto', filter: 'brightness(0) invert(1)', opacity: 0.7 }} />
-              <img src="/iom-logo.png" alt="IOM Ghana" style={{ height: 28, width: 'auto', filter: 'brightness(0) invert(1)', opacity: 0.7 }} />
-              <img src="/giz-logo.png" alt="GIZ" style={{ height: 28, width: 'auto', filter: 'brightness(0) invert(1)', opacity: 0.7 }} />
+            <div style={{ display: 'flex', marginTop: 24, alignItems: 'center' }}>
+              <img src="/ama-logo.png" alt="AMA" style={{ height: 32, width: 'auto', marginRight: 12 }} />
+              <img src="/iom-logo.png" alt="IOM Ghana" style={{ height: 32, width: 'auto', marginRight: 12 }} />
+              <img src="/giz-logo.png" alt="GIZ" style={{ height: 32, width: 'auto' }} />
             </div>
           </div>
 
@@ -82,10 +82,7 @@ export default function Footer() {
         </div>
 
         {/* Bottom bar */}
-        <div style={{ borderTop: '1px solid rgba(255,255,255,0.08)', paddingTop: 24, display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: 12 }}>
-          <div style={{ fontSize: 12, color: 'rgba(255,255,255,0.3)', fontStyle: 'italic' }}>
-            This initiative is implemented by IOM with funding from the Deutsche Gesellschaft für Internationale Zusammenarbeit (GIZ) GmbH.
-          </div>
+        <div style={{ borderTop: '1px solid rgba(255,255,255,0.08)', paddingTop: 24, display: 'flex', justifyContent: 'flex-end', alignItems: 'center', flexWrap: 'wrap', gap: 12 }}>
           <div style={{ fontSize: 12, color: 'rgba(255,255,255,0.3)' }}>
             Built by Asteri Technologies · {new Date().getFullYear()}
           </div>

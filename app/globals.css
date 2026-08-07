@@ -3,65 +3,146 @@
 @tailwind utilities;
 
 :root {
+  /* Brand */
   --green: #1a6b3a;
   --green-dark: #0d2818;
   --green-mid: #4a6b55;
   --green-light: #e8f5ee;
-  --green-pale: #f2f8f4;
   --gold: #c8880a;
   --gold-light: #fff8ee;
-  --parchment: #f5f0e8;
-  --parchment-border: #e8e0d0;
-  --white: #ffffff;
-  --text-dark: #0d2818;
-  --text-mid: #4a6b55;
-  --text-light: #8a9e92;
-  --red: #c62828;
-  --blue: #1565c0;
-  --shadow-sm: 0 1px 3px rgba(13,40,24,0.08);
-  --shadow-md: 0 4px 16px rgba(13,40,24,0.10);
-  --shadow-lg: 0 12px 40px rgba(13,40,24,0.14);
+
+  /* Light theme (default) */
+  --bg: #ffffff;
+  --bg-secondary: #f8fafb;
+  --bg-card: #ffffff;
+  --border: #e5e7eb;
+  --text-primary: #0d2818;
+  --text-secondary: #4a6b55;
+  --text-muted: #9ca3af;
+  --shadow-sm: 0 1px 3px rgba(13,40,24,0.06);
+  --shadow-md: 0 4px 16px rgba(13,40,24,0.08);
+  --shadow-lg: 0 12px 40px rgba(13,40,24,0.12);
+  --shadow-hover: 0 8px 30px rgba(13,40,24,0.14);
+
+  /* Typography */
+  --font-display: var(--font-dm-serif), Georgia, serif;
+  --font-body: var(--font-inter), system-ui, sans-serif;
+
+  /* Radius */
   --radius-sm: 8px;
   --radius-md: 12px;
   --radius-lg: 20px;
-  --font-display: var(--font-dm-serif), Georgia, serif;
-  --font-body: var(--font-inter), system-ui, sans-serif;
+}
+
+[data-theme="dark"] {
+  --bg: #0a0f0c;
+  --bg-secondary: #111714;
+  --bg-card: #161d19;
+  --border: #1e2923;
+  --text-primary: #f0f7f2;
+  --text-secondary: #86a892;
+  --text-muted: #4a6b55;
+  --shadow-sm: 0 1px 3px rgba(0,0,0,0.3);
+  --shadow-md: 0 4px 16px rgba(0,0,0,0.4);
+  --shadow-lg: 0 12px 40px rgba(0,0,0,0.5);
+  --shadow-hover: 0 8px 30px rgba(0,0,0,0.5);
 }
 
 * { box-sizing: border-box; margin: 0; padding: 0; }
-
-html { scroll-behavior: smooth; font-size: 16px; }
+html { font-size: 16px; scroll-behavior: smooth; }
 
 body {
   font-family: var(--font-body);
-  background: var(--parchment);
-  color: var(--text-dark);
+  background: var(--bg);
+  color: var(--text-primary);
   line-height: 1.6;
   -webkit-font-smoothing: antialiased;
+  transition: background 0.3s ease, color 0.3s ease;
 }
 
 h1, h2, h3 {
   font-family: var(--font-display);
-  color: var(--green-dark);
+  color: var(--text-primary);
   line-height: 1.2;
 }
 
-a { color: inherit; }
+a { color: inherit; text-decoration: none; }
+input, textarea, select, button { font-family: var(--font-body); }
 
-input, textarea, select, button {
-  font-family: var(--font-body);
-}
-
-/* Scrollbar */
 ::-webkit-scrollbar { width: 6px; }
-::-webkit-scrollbar-track { background: var(--parchment); }
-::-webkit-scrollbar-thumb { background: var(--parchment-border); border-radius: 3px; }
+::-webkit-scrollbar-track { background: var(--bg); }
+::-webkit-scrollbar-thumb { background: var(--border); border-radius: 3px; }
 
-/* Focus ring */
-:focus-visible {
-  outline: 2px solid var(--green);
-  outline-offset: 2px;
+:focus-visible { outline: 2px solid var(--green); outline-offset: 2px; }
+
+/* Animations */
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(24px); }
+  to { opacity: 1; transform: translateY(0); }
 }
 
-/* Smooth transitions */
-a, button { transition: all 0.2s ease; }
+@keyframes fadeInLeft {
+  from { opacity: 0; transform: translateX(-24px); }
+  to { opacity: 1; transform: translateX(0); }
+}
+
+@keyframes scaleIn {
+  from { opacity: 0; transform: scale(0.95); }
+  to { opacity: 1; transform: scale(1); }
+}
+
+.animate-fadeInUp {
+  opacity: 0;
+  animation: fadeInUp 0.6s ease forwards;
+}
+
+.animate-fadeInUp.delay-1 { animation-delay: 0.1s; }
+.animate-fadeInUp.delay-2 { animation-delay: 0.2s; }
+.animate-fadeInUp.delay-3 { animation-delay: 0.3s; }
+.animate-fadeInUp.delay-4 { animation-delay: 0.4s; }
+
+.animate-scaleIn {
+  opacity: 0;
+  animation: scaleIn 0.5s ease forwards;
+}
+
+/* Card hover effects */
+.card-hover {
+  transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
+}
+
+.card-hover:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-hover);
+}
+
+/* Service card hover */
+.service-card {
+  transition: all 0.25s ease;
+}
+
+.service-card:hover {
+  background: var(--green-light) !important;
+}
+
+.service-card:hover .service-icon {
+  background: var(--green) !important;
+  color: #ffffff !important;
+}
+
+/* Scroll-triggered animations */
+.scroll-animate {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.6s ease, transform 0.6s ease;
+}
+
+.scroll-animate.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.scroll-animate.delay-1 { transition-delay: 0.1s; }
+.scroll-animate.delay-2 { transition-delay: 0.2s; }
+.scroll-animate.delay-3 { transition-delay: 0.3s; }
+.scroll-animate.delay-4 { transition-delay: 0.4s; }
